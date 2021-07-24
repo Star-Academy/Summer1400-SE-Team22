@@ -1,9 +1,9 @@
 public class WordInfo {
-    public int fileno;
+    public String fileName;
     public int position;
 
-    public WordInfo(int fileno, int position) {
-        this.fileno = fileno;
+    public WordInfo(String fileName, int position) {
+        this.fileName = fileName;
         this.position = position;
     }
 }
