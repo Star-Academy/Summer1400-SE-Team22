@@ -23,11 +23,9 @@ public class InvertedIndex {
             "will", "with", "would", "yet", "you", "your");
 
     Map<String, List<WordInfo>> index = new HashMap<>();
-    List<String> files = new ArrayList<>();
 
-    public static void run() {
+    public static void run(String folderAddress) {
         try {
-            String folderAddress = "SampleEnglishData/EnglishData";
             File folder = new File(folderAddress);
             File[] listOfFiles = folder.listFiles();
 
@@ -69,7 +67,7 @@ public class InvertedIndex {
             List<WordInfo> idx = index.get(word);
             if (idx != null) {
                 for (WordInfo t : idx) {
-                    answer.add(files.get(t.fileName));
+//                    answer.add(files.get(t.fileName));
                 }
             }
             System.out.print(word);
