@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class InvertedIndex {
@@ -23,13 +20,18 @@ public class InvertedIndex {
             "will", "with", "would", "yet", "you", "your");
 
     Map<String, List<WordInfo>> index = new HashMap<>();
+    String folderAddress;
+
+    public InvertedIndex(String folderAddress) {
+        this.folderAddress = folderAddress;
+    }
 
     public static void run(String folderAddress) {
         try {
             File folder = new File(folderAddress);
             File[] listOfFiles = folder.listFiles();
 
-            InvertedIndex idx = new InvertedIndex();
+            InvertedIndex idx = new InvertedIndex(folderAddress);
             System.out.println("indexing...");
             for (File listOfFile : listOfFiles) {
                 idx.indexFile(new File(folderAddress + "/" + listOfFile.getName()));
@@ -43,20 +45,18 @@ public class InvertedIndex {
         }
     }
 
-    public void indexFile(File file) throws IOException {
+    public void indexFile(File file) {
         String fileName = file.getName();
 
         int position = 0;
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-            for (String word : line.split("\\W+")) {
-                word = word.toLowerCase();
-                position++;
-                if (stopWords.contains(word))
-                    continue;
-                List<WordInfo> idx = index.computeIfAbsent(word, k -> new LinkedList<>());
-                idx.add(new WordInfo(fileName, position));
-            }
+        String text = FileReader.readFileContent(file);
+        for (String word : text.split("\\W+")) {
+            word = word.toLowerCase();
+            position++;
+            if (stopWords.contains(word))
+                continue;
+            List<WordInfo> idx = index.computeIfAbsent(word, k -> new LinkedList<>());
+            idx.add(new WordInfo(fileName, position));
         }
     }
 
@@ -67,14 +67,14 @@ public class InvertedIndex {
             List<WordInfo> idx = index.get(word);
             if (idx != null) {
                 for (WordInfo t : idx) {
-//                    answer.add(files.get(t.fileName));
+                    answer.add(folderAddress + "/" + t.fileName);
                 }
             }
             System.out.print(word);
             for (String f : answer) {
                 System.out.print(" " + f);
+                System.out.println();
             }
-            System.out.println("");
         }
     }
 

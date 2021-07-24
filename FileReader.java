@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class FileReader {
 
-    public String readFileContent(String address) {
+    public static String readFileContent(File file) {
         StringBuilder output = new StringBuilder();
         try {
-            File file = new File(address);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
