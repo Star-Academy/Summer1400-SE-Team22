@@ -38,8 +38,11 @@ public class InvertedIndex {
             }
             System.out.println("indexing completed.");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("enter a word for search:");
-            idx.search(Arrays.asList(scanner.nextLine().split(",")));
+            while (true) {
+                System.out.println("enter a word for search:");
+                idx.search(scanner.nextLine());
+                System.out.println("---------------------------------------------------");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,22 +63,42 @@ public class InvertedIndex {
         }
     }
 
-    public void search(List<String> words) {
-        for (String _word : words) {
-            Set<String> answer = new HashSet<>();
-            String word = _word.toLowerCase();
-            List<WordInfo> idx = index.get(word);
-            if (idx != null) {
-                for (WordInfo t : idx) {
-                    answer.add(folderAddress + "/" + t.fileName);
+    public void search(String searchingExpression) {
+        String[] words = searchingExpression.split("\\W+");
+
+        int firstNonStopWord = 0;
+        while (stopWords.contains(words[firstNonStopWord])) {
+            firstNonStopWord++;
+        }
+
+        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[firstNonStopWord]));
+
+        int ignoredCounter = 0;
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (stopWords.contains(word)) {
+                ignoredCounter++;
+                continue;
+            }
+
+            List<WordInfo> demo = searchForAWord(words[i]);
+            for (int j = candidates.size() - 1; j >= 0; j--) {
+                WordInfo candidate = candidates.get(j);
+                for (WordInfo wordInfo : demo) {
+                    if (!wordInfo.fileName.equals(candidate.fileName)) continue;
+                    if (candidate.position + ignoredCounter + 1 != wordInfo.position)
+                        candidates.remove(candidate);
                 }
             }
-            System.out.print(word);
-            for (String f : answer) {
-                System.out.print(" " + f);
-                System.out.println();
-            }
+
+            ignoredCounter = 0;
         }
+
+    }
+
+    private List<WordInfo> searchForAWord(String word) {
+        word = word.toLowerCase();
+        return index.get(word);
     }
 
 }
