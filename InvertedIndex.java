@@ -36,7 +36,7 @@ public class InvertedIndex {
             }
             System.out.println("indexing completed.");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("enter searching word:");
+            System.out.println("enter a word for search:");
             idx.search(Arrays.asList(scanner.nextLine().split(",")));
         } catch (Exception e) {
             e.printStackTrace();
