@@ -24,6 +24,7 @@ public class InvertedIndex {
 
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
 
     public InvertedIndex(String folderAddress) {
@@ -72,9 +73,15 @@ public class InvertedIndex {
         String[] words = searchingExpression.split("\\W+");
 
         int i = 0;
-        while (stopWords.contains(words[i])) {
-            i++;
+        try {
+            while (stopWords.contains(words[i])) {
+                i++;
+            }
+        } catch (Exception e) {
+            System.out.println(ANSI_RED + "please try a different keyword for your search!" + ANSI_RESET);
+            return;
         }
+
 
         List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[i]));
 
