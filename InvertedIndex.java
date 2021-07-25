@@ -87,13 +87,14 @@ public class InvertedIndex {
                 boolean isExist = false;
 
                 for (WordInfo wordInfo : demo) {
-                    if (wordInfo.fileName.equals(candidate.fileName) && candidates.get(i - 1).position + ignoredCounter + 1 == wordInfo.position) {
+                    if (wordInfo.fileName.equals(candidate.fileName) && candidate.position + ignoredCounter + 1 == wordInfo.position) {
+                        candidates.set(j, wordInfo);
                         isExist = true;
                         break;
                     }
                 }
                 if (!isExist)
-                    candidates.remove(candidate);
+                    candidates.remove(j);
             }
 
             ignoredCounter = 0;
