@@ -69,8 +69,9 @@ public class InvertedIndex {
     }
 
     public void search(String searchingExpression) {
+        HashMap<String , WordInfo> allCandidates = new HashMap<>();
         searchingExpression = searchingExpression.toLowerCase();
-        List<String> words = (Arrays.asList(searchingExpression.split("\\W+")));
+        List<String> words = new LinkedList<>(Arrays.asList(searchingExpression.split("\\s+")));
         List<String> plusWords = new LinkedList<>();
         List<String> minisWords = new LinkedList<>();
         for (int i = words.size() - 1; i >= 0; i--) {
@@ -95,7 +96,6 @@ public class InvertedIndex {
 
 
         List<WordInfo> candidates = new LinkedList<>(searchForAWord(words.get(i)));
-
         int ignoredCounter = 0;
         for (i+= 1; i < words.size(); i++) {
             String word = words.get(i);
@@ -119,14 +119,21 @@ public class InvertedIndex {
                 if (!isExist)
                     candidates.remove(j);
             }
-
+            for (String plusWord : plusWords) {
+                for (WordInfo wordInfo : searchForAWord(plusWord)) {
+                    allCandidates.put(wordInfo.fileName, wordInfo);
+                }
+            }
             ignoredCounter = 0;
         }
 
         for (WordInfo candidate : candidates) {
-            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.size() + 1) + ANSI_RESET);
+            allCandidates.put(candidate.fileName, candidate);
         }
 
+        for (WordInfo candidate : allCandidates.values()) {
+            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.size() + 1) + ANSI_RESET);
+        }
     }
 
     private List<WordInfo> searchForAWord(String word) {
