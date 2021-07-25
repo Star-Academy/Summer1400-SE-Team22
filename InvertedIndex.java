@@ -105,7 +105,7 @@ public class InvertedIndex {
         }
 
         for (WordInfo candidate : candidates) {
-            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + candidate.position + ANSI_RESET);
+            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.length + 1) + ANSI_RESET);
         }
 
     }
