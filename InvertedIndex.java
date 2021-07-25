@@ -70,11 +70,22 @@ public class InvertedIndex {
 
     public void search(String searchingExpression) {
         searchingExpression = searchingExpression.toLowerCase();
-        String[] words = searchingExpression.split("\\W+");
-
+        List<String> words = (Arrays.asList(searchingExpression.split("\\W+")));
+        List<String> plusWords = new LinkedList<>();
+        List<String> minisWords = new LinkedList<>();
+        for (int i = words.size() - 1; i >= 0; i--) {
+            String word = words.get(i);
+            if (word.startsWith("+")) {
+                plusWords.add(word);
+                words.remove(i);
+            } else if (word.startsWith("-")){
+                minisWords.add(word);
+                words.remove(i);
+            }
+        }
         int i = 0;
         try {
-            while (stopWords.contains(words[i])) {
+            while (stopWords.contains(words.get(i))) {
                 i++;
             }
         } catch (Exception e) {
@@ -83,17 +94,17 @@ public class InvertedIndex {
         }
 
 
-        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[i]));
+        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words.get(i)));
 
         int ignoredCounter = 0;
-        for (i+= 1; i < words.length; i++) {
-            String word = words[i];
+        for (i+= 1; i < words.size(); i++) {
+            String word = words.get(i);
             if (stopWords.contains(word)) {
                 ignoredCounter++;
                 continue;
             }
 
-            List<WordInfo> demo = searchForAWord(words[i]);
+            List<WordInfo> demo = searchForAWord(words.get(i));
             for (int j = candidates.size() - 1; j >= 0; j--) {
                 WordInfo candidate = candidates.get(j);
                 boolean isExist = false;
@@ -113,7 +124,7 @@ public class InvertedIndex {
         }
 
         for (WordInfo candidate : candidates) {
-            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.length + 1) + ANSI_RESET);
+            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.size() + 1) + ANSI_RESET);
         }
 
     }
