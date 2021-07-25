@@ -76,10 +76,10 @@ public class InvertedIndex {
         for (int i = words.size() - 1; i >= 0; i--) {
             String word = words.get(i);
             if (word.startsWith("+")) {
-                plusWords.add(word);
+                plusWords.add(word.substring(1));
                 words.remove(i);
             } else if (word.startsWith("-")){
-                minisWords.add(word);
+                minisWords.add(word.substring(1));
                 words.remove(i);
             }
         }
