@@ -70,7 +70,7 @@ public class InvertedIndex {
 
     public void search(String searchingExpression) {
         searchingExpression = searchingExpression.toLowerCase();
-        List<String> words = (Arrays.asList(searchingExpression.split("\\s+")));
+        LinkedList<String> words = new LinkedList<>(Arrays.asList(searchingExpression.split("\\s+")));
         List<String> plusWords = new LinkedList<>();
         List<String> minusWords = new LinkedList<>();
         for (int i = words.size() - 1; i >= 0; i--) {
