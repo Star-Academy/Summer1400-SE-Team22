@@ -73,14 +73,14 @@ public class InvertedIndex {
         searchingExpression = searchingExpression.toLowerCase();
         List<String> words = new LinkedList<>(Arrays.asList(searchingExpression.split("\\s+")));
         List<String> plusWords = new LinkedList<>();
-        List<String> minisWords = new LinkedList<>();
+        List<String> minusWords = new LinkedList<>();
         for (int i = words.size() - 1; i >= 0; i--) {
             String word = words.get(i);
             if (word.startsWith("+")) {
                 plusWords.add(word.substring(1));
                 words.remove(i);
             } else if (word.startsWith("-")){
-                minisWords.add(word.substring(1));
+                minusWords.add(word.substring(1));
                 words.remove(i);
             }
         }
@@ -132,8 +132,26 @@ public class InvertedIndex {
             allCandidates.put(candidate.fileName, candidate);
         }
 
-        for (WordInfo candidate : allCandidates.values()) {
+        candidates = new LinkedList<>(allCandidates.values());
+
+        deleteMinusWordsFromCandidates(minusWords, candidates);
+
+        for (WordInfo candidate : candidates) {
             System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + (candidate.position - words.size() + 1) + ANSI_RESET);
+        }
+    }
+
+    private void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
+        for (String minusWord : minusWords) {
+            try {
+                List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
+                for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
+                    for (int j = candidates.size() - 1; j >= 0; j--) {
+                        if (candidates.get(j).fileName.equals(toBeRemovedDoc.fileName)) candidates.remove(j);
+                    }
+                }
+            } catch (Exception ignored) {
+            }
         }
     }
 
