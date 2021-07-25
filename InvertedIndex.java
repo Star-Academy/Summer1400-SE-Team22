@@ -66,15 +66,15 @@ public class InvertedIndex {
     public void search(String searchingExpression) {
         String[] words = searchingExpression.split("\\W+");
 
-        int firstNonStopWord = 0;
-        while (stopWords.contains(words[firstNonStopWord])) {
-            firstNonStopWord++;
+        int i = 0;
+        while (stopWords.contains(words[i])) {
+            i++;
         }
 
-        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[firstNonStopWord]));
+        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[i]));
 
         int ignoredCounter = 0;
-        for (int i = firstNonStopWord + 1 ; i < words.length; i++) {
+        for (i+= 1; i < words.length; i++) {
             String word = words[i];
             if (stopWords.contains(word)) {
                 ignoredCounter++;
@@ -84,17 +84,15 @@ public class InvertedIndex {
             List<WordInfo> demo = searchForAWord(words[i]);
             for (int j = candidates.size() - 1; j >= 0; j--) {
                 WordInfo candidate = candidates.get(j);
-                WordInfo candidateInDemo = null;
                 boolean isExist = false;
 
                 for (WordInfo wordInfo : demo) {
-                    if (wordInfo.fileName.equals(candidate.fileName)) {
-                        candidateInDemo = wordInfo;
+                    if (wordInfo.fileName.equals(candidate.fileName) && candidates.get(i - 1).position + ignoredCounter + 1 == wordInfo.position) {
                         isExist = true;
                         break;
                     }
                 }
-                if (!isExist || candidate.position + ignoredCounter + 1 != candidateInDemo.position)
+                if (!isExist)
                     candidates.remove(candidate);
             }
 
