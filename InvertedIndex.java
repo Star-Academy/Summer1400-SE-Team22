@@ -74,7 +74,7 @@ public class InvertedIndex {
         List<WordInfo> candidates = new LinkedList<>(searchForAWord(words[firstNonStopWord]));
 
         int ignoredCounter = 0;
-        for (int i = 0; i < words.length; i++) {
+        for (int i = firstNonStopWord + 1 ; i < words.length; i++) {
             String word = words[i];
             if (stopWords.contains(word)) {
                 ignoredCounter++;
@@ -92,6 +92,9 @@ public class InvertedIndex {
             }
 
             ignoredCounter = 0;
+        }
+        for (WordInfo candidate : candidates) {
+            System.out.println(candidate.fileName);
         }
 
     }
