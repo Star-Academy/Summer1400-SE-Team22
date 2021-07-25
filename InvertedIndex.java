@@ -119,6 +119,7 @@ public class InvertedIndex {
                 if (!isExist)
                     candidates.remove(j);
             }
+
             for (String plusWord : plusWords) {
                 for (WordInfo wordInfo : searchForAWord(plusWord)) {
                     allCandidates.put(wordInfo.fileName, wordInfo);
