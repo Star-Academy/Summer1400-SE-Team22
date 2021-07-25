@@ -68,6 +68,7 @@ public class InvertedIndex {
     }
 
     public void search(String searchingExpression) {
+        searchingExpression = searchingExpression.toLowerCase();
         String[] words = searchingExpression.split("\\W+");
 
         int i = 0;
