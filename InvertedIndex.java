@@ -22,6 +22,10 @@ public class InvertedIndex {
     Map<String, List<WordInfo>> index = new HashMap<>();
     String folderAddress;
 
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     public InvertedIndex(String folderAddress) {
         this.folderAddress = folderAddress;
     }
@@ -98,8 +102,9 @@ public class InvertedIndex {
 
             ignoredCounter = 0;
         }
+
         for (WordInfo candidate : candidates) {
-            System.out.println("File name :" + candidate.fileName + " Position :" + candidate.position);
+            System.out.println("File name: " + ANSI_CYAN + candidate.fileName + ANSI_RESET + " Position: " + ANSI_GREEN + candidate.position + ANSI_RESET);
         }
 
     }
