@@ -84,17 +84,24 @@ public class InvertedIndex {
             List<WordInfo> demo = searchForAWord(words[i]);
             for (int j = candidates.size() - 1; j >= 0; j--) {
                 WordInfo candidate = candidates.get(j);
+                WordInfo candidateInDemo = null;
+                boolean isExist = false;
+
                 for (WordInfo wordInfo : demo) {
-                    if (!wordInfo.fileName.equals(candidate.fileName)) continue;
-                    if (candidate.position + ignoredCounter + 1 != wordInfo.position)
-                        candidates.remove(candidate);
+                    if (wordInfo.fileName.equals(candidate.fileName)) {
+                        candidateInDemo = wordInfo;
+                        isExist = true;
+                        break;
+                    }
                 }
+                if (!isExist || candidate.position + ignoredCounter + 1 != candidateInDemo.position)
+                    candidates.remove(candidate);
             }
 
             ignoredCounter = 0;
         }
         for (WordInfo candidate : candidates) {
-            System.out.println(candidate.fileName);
+            System.out.println("File name :" + candidate.fileName + " Position :" + candidate.position);
         }
 
     }
