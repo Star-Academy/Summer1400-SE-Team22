@@ -1,18 +1,27 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InvertedIndexTest {
 
-    @Test
-    void indexAllFiles() {
+    InvertedIndex invertedIndex;
+
+    @BeforeEach
+    void initialize() {
+        invertedIndex = new InvertedIndex();
     }
 
     @Test
-    void getStopWords() {
+    void indexAllFilesTest() {
+        assertDoesNotThrow(() ->
+                invertedIndex.indexAllFiles("src/main/resources/SampleEnglishData/EnglishData"));
+        assertNotNull(invertedIndex.getIndex());
     }
 
     @Test
-    void getIndex() {
+    void getStopWordsTest() {
+        assertEquals(InvertedIndex.getStopWords().size(), 119);
     }
+
 }

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileReaderTest {
 
     @org.junit.jupiter.api.Test
-    void readFileContent() {
+    void readFileContentTest() {
         try {
             FileWriter fileWriter = new FileWriter("src/main/resources/temp.txt");
             fileWriter.write("hello world!");
@@ -25,7 +25,7 @@ class FileReaderTest {
     }
 
     @org.junit.jupiter.api.Test
-    void readNotExistingFileContent() {
+    void readNotExistingFileContentTest() {
         assertDoesNotThrow(() ->{
             FileReader.readFileContent(new File("src/main/resources/notExistingFile.xyz"));
         });
