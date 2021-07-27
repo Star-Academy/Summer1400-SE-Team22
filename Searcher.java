@@ -72,8 +72,8 @@ public class Searcher {
             boolean isExist = false;
 
             for (WordInfo wordInfo : demo) {
-                if (wordInfo.fileName.equals(candidate.fileName)
-                        && candidate.position + ignoredCounter + 1 == wordInfo.position) {
+                if (wordInfo.getFileName().equals(candidate.getFileName())
+                        && candidate.getPosition() + ignoredCounter + 1 == wordInfo.getPosition()) {
                     candidates.set(j, wordInfo);
                     isExist = true;
                     break;
@@ -86,22 +86,22 @@ public class Searcher {
 
     private static void sumResultsWithPlusWords(HashMap<String, WordInfo> allCandidates, List<WordInfo> candidates) {
         for (WordInfo candidate : candidates) {
-            allCandidates.put(candidate.fileName, candidate);
+            allCandidates.put(candidate.getFileName(), candidate);
         }
     }
 
     private static void handlePlusWords(HashMap<String, WordInfo> allCandidates, List<String> plusWords) {
         for (String plusWord : plusWords) {
             for (WordInfo wordInfo : searchForAWord(plusWord)) {
-                allCandidates.put(wordInfo.fileName, wordInfo);
+                allCandidates.put(wordInfo.getFileName(), wordInfo);
             }
         }
     }
 
     private static void printResults(List<String> words, List<WordInfo> candidates) {
         for (WordInfo candidate : candidates) {
-            System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.fileName + ConsoleColors.ANSI_RESET
-                    + " Position: " + ConsoleColors.ANSI_GREEN + (candidate.position - words.size() + 1)
+            System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.getFileName() + ConsoleColors.ANSI_RESET
+                    + " Position: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - words.size() + 1)
                     + ConsoleColors.ANSI_RESET);
         }
     }
@@ -130,7 +130,7 @@ public class Searcher {
                 List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
                 for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
                     for (int j = candidates.size() - 1; j >= 0; j--) {
-                        if (candidates.get(j).fileName.equals(toBeRemovedDoc.fileName))
+                        if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
                             candidates.remove(j);
                     }
                 }
