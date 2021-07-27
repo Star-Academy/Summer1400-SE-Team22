@@ -39,8 +39,12 @@ public class Searcher {
                     + ConsoleColors.ANSI_RESET);
             return;
         }
-
-        List<WordInfo> candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
+        List<WordInfo> candidates = null;
+        try {
+            candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
+        } catch (Exception e){
+            return;
+        }
         int ignoredCounter = 0;
         for (navigatingIndex += 1; navigatingIndex < words.size(); navigatingIndex++) {
             String word = words.get(navigatingIndex);
