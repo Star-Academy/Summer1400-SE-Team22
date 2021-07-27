@@ -19,7 +19,7 @@ public class Searcher {
         }
     }
 
-    private static void search(String searchingExpression) {
+    public static void search(String searchingExpression) {
 
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         searchingExpression = searchingExpression.toLowerCase();
@@ -39,7 +39,7 @@ public class Searcher {
                     + ConsoleColors.ANSI_RESET);
             return;
         }
-        List<WordInfo> candidates = null;
+        List<WordInfo> candidates;
         try {
             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
         } catch (Exception e){
@@ -143,4 +143,7 @@ public class Searcher {
         }
     }
 
+    public static void setInvertedIndex(InvertedIndex invertedIndex) {
+        Searcher.invertedIndex = invertedIndex;
+    }
 }
