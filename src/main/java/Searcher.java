@@ -4,16 +4,11 @@ public class Searcher {
 
     private static InvertedIndex invertedIndex;
 
-    public static InvertedIndex getInvertedIndex() {
-        return invertedIndex;
-    }
-
     public static void setInvertedIndex(InvertedIndex invertedIndex) {
         Searcher.invertedIndex = invertedIndex;
     }
 
     public void run(String folderAddress) {
-        try {
             invertedIndex = new InvertedIndex();
             invertedIndex.indexAllFiles(folderAddress);
             Scanner scanner = new Scanner(System.in);
@@ -22,9 +17,6 @@ public class Searcher {
                 printResults(search(scanner.nextLine()));
                 System.out.println("---------------------------------------------------");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public List<WordInfo> search(String searchingExpression) {
@@ -110,6 +102,7 @@ public class Searcher {
 
     private void printResults(List<WordInfo> candidates) {
         if (candidates == null){
+            System.out.println("there is no match!");
             return;
         }
         for (WordInfo candidate : candidates)

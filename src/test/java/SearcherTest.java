@@ -3,6 +3,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 
@@ -71,6 +73,19 @@ class SearcherTest {
         List<WordInfo> result = searcher.search("were is");
         Assertions.assertEquals(null, result);
         assert(outContent.toString().contains("please try a different keyword for your search!"));
+    }
+
+    @Test
+    void notExistWordsSearch() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        outContent.reset();
+        List<WordInfo> result = searcher.search("inkalamehvojoodnadaradaziz");
+        Method printResultMethod = Class.forName("Searcher").getDeclaredMethod("printResults", List.class);
+        printResultMethod.setAccessible(true);
+        printResultMethod.invoke(searcher, result);
+        Assertions.assertEquals(null, result);
+        assert(outContent.toString().contains("there is no match!"));
     }
 
     @Test
