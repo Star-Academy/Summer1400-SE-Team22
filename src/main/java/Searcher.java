@@ -54,19 +54,14 @@ public class Searcher {
                 ignoredCounter++;
                 continue;
             }
-
             List<WordInfo> demo = searchForAWord(words.get(navigatingIndex));
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
             handlePlusWords(allCandidates, plusWords);
             ignoredCounter = 0;
         }
-
         sumResultsWithPlusWords(allCandidates, candidates);
-
         candidates = new LinkedList<>(allCandidates.values());
-
         deleteMinusWordsFromCandidates(minusWords, candidates);
-
         return candidates;
     }
 

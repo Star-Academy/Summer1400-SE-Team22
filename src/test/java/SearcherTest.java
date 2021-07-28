@@ -41,9 +41,14 @@ class SearcherTest {
 
     @Test
     void normalWordsWithStopWordsBetweenSearch(){
-        List<WordInfo> result = searcher.search("ali va is were hasan godratmand");
+        List<WordInfo> result = searcher.search("ali va hasan is godratmand");
         Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals("3", result.get(0).getFileName());
+        Assertions.assertEquals("4", result.get(0).getFileName());
+    }
+
+    @Test
+    void consoleColorInstantiation(){
+        new ConsoleColors();
     }
 
 
