@@ -31,6 +31,25 @@ class SearcherTest {
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals("3", result.get(0).getFileName());
     }
+
+    @Test
+    void plusWordsSearchOne(){
+        List<WordInfo> result = searcher.search("+ali va hasan godratmand");
+        Assertions.assertEquals(7, result.size());
+    }
+
+    @Test
+    void plusWordsSearchTwo(){
+        List<WordInfo> result = searcher.search("ali va +hasan godratmand");
+        Assertions.assertEquals(5, result.size());
+    }
+
+    @Test
+    void minusWordSearch(){
+        List<WordInfo> result = searcher.search("ali -hasan");
+        Assertions.assertEquals(2, result.size());
+    }
+
     @Test
     void deleteMinusWordsFromEmptyResultTest() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
