@@ -25,4 +25,21 @@ class MainTest {
 
         System.setIn(sysInBackup);
     }
+
+    @Test
+    void mainTest2() {
+        InputStream sysInBackup = System.in;
+        ByteArrayInputStream in = new ByteArrayInputStream(("hello -kid\nexit").getBytes());
+        System.setIn(in);
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        outContent.reset();
+
+        assertDoesNotThrow(() -> Main.main(null));
+
+        assert(outContent.toString().contains("File name: "));
+
+        System.setIn(sysInBackup);
+    }
 }
