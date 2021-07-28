@@ -11,7 +11,8 @@ import java.util.List;
 class SearcherTest {
 
     private static InvertedIndex invertedIndex = new InvertedIndex();
-    private static Searcher searcher;
+    private static Searcher searcher = new Searcher();
+
     @BeforeEach
     void init(){
         invertedIndex = new InvertedIndex();
