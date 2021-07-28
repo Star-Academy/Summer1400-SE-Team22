@@ -9,16 +9,16 @@ public class Searcher {
     }
 
     public void run(String folderAddress) {
-            invertedIndex = new InvertedIndex();
-            invertedIndex.indexAllFiles(folderAddress);
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                System.out.println("enter a word for search:");
-                String input = scanner.nextLine();
-                if (input.equals("exit")) return;
-                printResults(search(input));
-                System.out.println("---------------------------------------------------");
-            }
+        invertedIndex = new InvertedIndex();
+        invertedIndex.indexAllFiles(folderAddress);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("enter a word for search:");
+            String input = scanner.nextLine();
+            if (input.equals("exit")) return;
+            printResults(search(input));
+            System.out.println("---------------------------------------------------");
+        }
     }
 
     public List<WordInfo> search(String searchingExpression) {
@@ -103,7 +103,7 @@ public class Searcher {
     }
 
     private void printResults(List<WordInfo> candidates) {
-        if (candidates == null){
+        if (candidates == null) {
             System.out.println("there is no match!");
             return;
         }
@@ -133,15 +133,12 @@ public class Searcher {
 
     private void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
         for (String minusWord : minusWords) {
-            try {
-                List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
-                for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
-                    for (int j = candidates.size() - 1; j >= 0; j--) {
-                        if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
-                            candidates.remove(j);
-                    }
+            List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
+            for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
+                for (int j = candidates.size() - 1; j >= 0; j--) {
+                    if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
+                        candidates.remove(j);
                 }
-            } catch (Exception ignored) {
             }
         }
     }
