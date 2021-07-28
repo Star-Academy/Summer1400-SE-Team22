@@ -4,10 +4,6 @@ public class Searcher {
 
     private static InvertedIndex invertedIndex;
 
-    public static InvertedIndex getInvertedIndex() {
-        return invertedIndex;
-    }
-
     public static void setInvertedIndex(InvertedIndex invertedIndex) {
         Searcher.invertedIndex = invertedIndex;
     }
@@ -19,7 +15,9 @@ public class Searcher {
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.println("enter a word for search:");
-                printResults(search(scanner.nextLine()));
+                String input = scanner.nextLine();
+                if (input.equals("exit")) return;
+                printResults(search(input));
                 System.out.println("---------------------------------------------------");
             }
         } catch (Exception e) {

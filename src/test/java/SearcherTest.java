@@ -6,14 +6,17 @@ import java.util.List;
 
 
 class SearcherTest {
+
     private static InvertedIndex invertedIndex = new InvertedIndex();
     private static Searcher searcher = new Searcher();
+
     static {
         invertedIndex = new InvertedIndex();
         searcher = new Searcher();
         invertedIndex.indexAllFiles("src/test/java/TestResources/EnglishData");
-        searcher.setInvertedIndex(invertedIndex);
+        Searcher.setInvertedIndex(invertedIndex);
     }
+
     @Test
     void normalWordSearch(){
         List<WordInfo> result = searcher.search("ali");
