@@ -4,14 +4,22 @@ public class Searcher {
 
     private static InvertedIndex invertedIndex;
 
-    public static void run(String folderAddress) {
+    public static InvertedIndex getInvertedIndex() {
+        return invertedIndex;
+    }
+
+    public static void setInvertedIndex(InvertedIndex invertedIndex) {
+        Searcher.invertedIndex = invertedIndex;
+    }
+
+    public void run(String folderAddress) {
         try {
             invertedIndex = new InvertedIndex();
             invertedIndex.indexAllFiles(folderAddress);
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 System.out.println("enter a word for search:");
-                search(scanner.nextLine());
+                printResults(search(scanner.nextLine()));
                 System.out.println("---------------------------------------------------");
             }
         } catch (Exception e) {
@@ -19,7 +27,7 @@ public class Searcher {
         }
     }
 
-    public static void search(String searchingExpression) {
+    public List<WordInfo> search(String searchingExpression) {
 
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         searchingExpression = searchingExpression.toLowerCase();
@@ -37,13 +45,13 @@ public class Searcher {
         } catch (Exception e) {
             System.out.println(ConsoleColors.ANSI_RED + "please try a different keyword for your search!"
                     + ConsoleColors.ANSI_RESET);
-            return;
+            return null;
         }
-        List<WordInfo> candidates;
+        List<WordInfo> candidates = null;
         try {
             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
-        } catch (Exception e){
-            return;
+        } catch (Exception e) {
+            return null;
         }
         int ignoredCounter = 0;
         for (navigatingIndex += 1; navigatingIndex < words.size(); navigatingIndex++) {
@@ -55,9 +63,7 @@ public class Searcher {
 
             List<WordInfo> demo = searchForAWord(words.get(navigatingIndex));
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
-
             handlePlusWords(allCandidates, plusWords);
-
             ignoredCounter = 0;
         }
 
@@ -67,10 +73,10 @@ public class Searcher {
 
         deleteMinusWordsFromCandidates(minusWords, candidates);
 
-        printResults(words, candidates);
+        return candidates;
     }
 
-    private static void reduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo) {
+    private void reduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo) {
         for (int j = candidates.size() - 1; j >= 0; j--) {
             WordInfo candidate = candidates.get(j);
             boolean isExist = false;
@@ -88,13 +94,13 @@ public class Searcher {
         }
     }
 
-    private static void sumResultsWithPlusWords(HashMap<String, WordInfo> allCandidates, List<WordInfo> candidates) {
+    private void sumResultsWithPlusWords(HashMap<String, WordInfo> allCandidates, List<WordInfo> candidates) {
         for (WordInfo candidate : candidates) {
             allCandidates.put(candidate.getFileName(), candidate);
         }
     }
 
-    private static void handlePlusWords(HashMap<String, WordInfo> allCandidates, List<String> plusWords) {
+    private void handlePlusWords(HashMap<String, WordInfo> allCandidates, List<String> plusWords) {
         for (String plusWord : plusWords) {
             for (WordInfo wordInfo : searchForAWord(plusWord)) {
                 allCandidates.put(wordInfo.getFileName(), wordInfo);
@@ -102,15 +108,15 @@ public class Searcher {
         }
     }
 
-    private static void printResults(List<String> words, List<WordInfo> candidates) {
+    private void printResults(List<WordInfo> candidates) {
         for (WordInfo candidate : candidates) {
             System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.getFileName() + ConsoleColors.ANSI_RESET
-                    + " Position: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - words.size() + 1)
+                    + " ApproximatePosition: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - candidates.size() + 1)
                     + ConsoleColors.ANSI_RESET);
         }
     }
 
-    private static void isolatePlusAndMinusWords(List<String> words, List<String> plusWords, List<String> minusWords) {
+    private void isolatePlusAndMinusWords(List<String> words, List<String> plusWords, List<String> minusWords) {
         for (int i = words.size() - 1; i >= 0; i--) {
             String word = words.get(i);
             if (word.startsWith("+")) {
@@ -123,12 +129,12 @@ public class Searcher {
         }
     }
 
-    private static List<WordInfo> searchForAWord(String word) {
+    private List<WordInfo> searchForAWord(String word) {
         word = word.toLowerCase();
         return invertedIndex.getIndex().get(word);
     }
 
-    private static void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
+    private void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
         for (String minusWord : minusWords) {
             try {
                 List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
@@ -143,7 +149,4 @@ public class Searcher {
         }
     }
 
-    public static void setInvertedIndex(InvertedIndex invertedIndex) {
-        Searcher.invertedIndex = invertedIndex;
-    }
 }
