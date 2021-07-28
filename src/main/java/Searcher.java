@@ -5,21 +5,19 @@ public class Searcher {
     private static InvertedIndex invertedIndex;
 
     public void run(String folderAddress) {
-        try {
-            invertedIndex = new InvertedIndex();
-            invertedIndex.indexAllFiles(folderAddress);
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                System.out.println("enter a word for search:");
-                printResults(search(scanner.nextLine()));
-                System.out.println("---------------------------------------------------");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        invertedIndex = new InvertedIndex();
+        invertedIndex.indexAllFiles(folderAddress);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("enter a word for search:");
+            String input = scanner.nextLine();
+            if (input.equals("exit")) return;
+            printResults(search(input));
+            System.out.println("---------------------------------------------------");
         }
     }
 
-    private List<WordInfo> search(String searchingExpression) {
+    public List<WordInfo> search(String searchingExpression) {
 
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         searchingExpression = searchingExpression.toLowerCase();
@@ -31,9 +29,8 @@ public class Searcher {
 
         int navigatingIndex = 0;
         try {
-            while (InvertedIndex.getStopWords().contains(words.get(navigatingIndex))) {
+            while (InvertedIndex.getStopWords().contains(words.get(navigatingIndex)))
                 navigatingIndex++;
-            }
         } catch (Exception e) {
             System.out.println(ConsoleColors.ANSI_RED + "please try a different keyword for your search!"
                     + ConsoleColors.ANSI_RESET);
@@ -41,8 +38,8 @@ public class Searcher {
         }
         List<WordInfo> candidates = null;
         try {
-             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
-        } catch (Exception e){
+            candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
+        } catch (Exception e) {
             return null;
         }
         int ignoredCounter = 0;
@@ -52,19 +49,14 @@ public class Searcher {
                 ignoredCounter++;
                 continue;
             }
-
             List<WordInfo> demo = searchForAWord(words.get(navigatingIndex));
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
             handlePlusWords(allCandidates, plusWords);
             ignoredCounter = 0;
         }
-
         sumResultsWithPlusWords(allCandidates, candidates);
-
         candidates = new LinkedList<>(allCandidates.values());
-
         deleteMinusWordsFromCandidates(minusWords, candidates);
-
         return candidates;
     }
 
@@ -101,11 +93,14 @@ public class Searcher {
     }
 
     private void printResults(List<WordInfo> candidates) {
-        for (WordInfo candidate : candidates) {
+        if (candidates == null) {
+            System.out.println("there is no match!");
+            return;
+        }
+        for (WordInfo candidate : candidates)
             System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.getFileName() + ConsoleColors.ANSI_RESET
                     + " ApproximatePosition: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - candidates.size() + 1)
                     + ConsoleColors.ANSI_RESET);
-        }
     }
 
     private void isolatePlusAndMinusWords(List<String> words, List<String> plusWords, List<String> minusWords) {
@@ -128,16 +123,11 @@ public class Searcher {
 
     private void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
         for (String minusWord : minusWords) {
-            try {
-                List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
-                for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
-                    for (int j = candidates.size() - 1; j >= 0; j--) {
-                        if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
-                            candidates.remove(j);
-                    }
-                }
-            } catch (Exception ignored) {
-            }
+            List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
+            for (WordInfo toBeRemovedDoc : toBeRemovedDocs)
+                for (int j = candidates.size() - 1; j >= 0; j--)
+                    if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
+                        candidates.remove(j);
         }
     }
 
