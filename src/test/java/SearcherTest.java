@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -7,13 +8,15 @@ import java.util.List;
 
 class SearcherTest {
     private static InvertedIndex invertedIndex = new InvertedIndex();
-    private static Searcher searcher = new Searcher();
-    static {
+    private static Searcher searcher;
+    @BeforeEach
+    void init(){
         invertedIndex = new InvertedIndex();
         searcher = new Searcher();
         invertedIndex.indexAllFiles("src/test/java/TestResources/EnglishData");
         searcher.setInvertedIndex(invertedIndex);
     }
+
     @Test
     void normalWordSearch(){
         List<WordInfo> result = searcher.search("ali");
@@ -48,6 +51,26 @@ class SearcherTest {
     void minusWordSearch(){
         List<WordInfo> result = searcher.search("ali -hasan");
         Assertions.assertEquals(2, result.size());
+    }
+
+    @Test
+    void stopWordSearch(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        outContent.reset();
+        List<WordInfo> result = searcher.search("is");
+        Assertions.assertEquals(null, result);
+        assert(outContent.toString().contains("please try a different keyword for your search!"));
+    }
+
+    @Test
+    void stopWordsSearch(){
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        outContent.reset();
+        List<WordInfo> result = searcher.search("were is");
+        Assertions.assertEquals(null, result);
+        assert(outContent.toString().contains("please try a different keyword for your search!"));
     }
 
     @Test

@@ -109,11 +109,13 @@ public class Searcher {
     }
 
     private void printResults(List<WordInfo> candidates) {
-        for (WordInfo candidate : candidates) {
+        if (candidates == null){
+            return;
+        }
+        for (WordInfo candidate : candidates)
             System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.getFileName() + ConsoleColors.ANSI_RESET
                     + " ApproximatePosition: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - candidates.size() + 1)
                     + ConsoleColors.ANSI_RESET);
-        }
     }
 
     private void isolatePlusAndMinusWords(List<String> words, List<String> plusWords, List<String> minusWords) {
