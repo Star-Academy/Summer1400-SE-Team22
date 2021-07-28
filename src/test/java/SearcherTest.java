@@ -9,6 +9,7 @@ import java.util.List;
 
 
 class SearcherTest {
+
     private static InvertedIndex invertedIndex = new InvertedIndex();
     private static Searcher searcher;
     @BeforeEach
@@ -16,7 +17,7 @@ class SearcherTest {
         invertedIndex = new InvertedIndex();
         searcher = new Searcher();
         invertedIndex.indexAllFiles("src/test/java/TestResources/EnglishData");
-        searcher.setInvertedIndex(invertedIndex);
+        Searcher.setInvertedIndex(invertedIndex);
     }
 
     @Test
