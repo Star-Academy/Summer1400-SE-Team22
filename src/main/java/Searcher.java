@@ -1,8 +1,14 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Searcher {
 
     private static InvertedIndex invertedIndex;
+    List<String> words;
+    List<String> plusWords;
+    List<String> minusWords;
 
     public void run(String folderAddress) {
         invertedIndex = new InvertedIndex();
@@ -17,11 +23,14 @@ public class Searcher {
         }
     }
 
-    public List<WordInfo> search(SearchingExpression searchingExpression) {
-         List<String> words = searchingExpression.getWords();
-         List<String> plusWords = searchingExpression.getPlusWords();
-         List<String> minusWords = searchingExpression.getMinusWords();
+    private void init(SearchingExpression searchingExpression) {
+        words = searchingExpression.getWords();
+        plusWords = searchingExpression.getPlusWords();
+        minusWords = searchingExpression.getMinusWords();
+    }
 
+    public List<WordInfo> search(SearchingExpression searchingExpression) {
+        init(searchingExpression);
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         List<WordInfo> candidates = null;
 
@@ -29,12 +38,6 @@ public class Searcher {
         try {
             while (InvertedIndex.getStopWords().contains(words.get(navigatingIndex)))
                 navigatingIndex++;
-        } catch (Exception e) {
-            System.out.println(ConsoleColors.ANSI_RED + "please try a different keyword for your search!"
-                    + ConsoleColors.ANSI_RESET);
-            return null;
-        }
-        try {
             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
         } catch (Exception e) {
             return null;
@@ -50,10 +53,10 @@ public class Searcher {
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
             ignoredCounter = 0;
         }
-        handlePlusWords(allCandidates, plusWords);
+        handlePlusWords(allCandidates);
         sumResultsWithPlusWords(allCandidates, candidates);
         candidates = new LinkedList<>(allCandidates.values());
-        deleteMinusWordsFromCandidates(minusWords, candidates);
+        deleteMinusWordsFromCandidates(candidates);
         return candidates;
     }
 
@@ -81,7 +84,7 @@ public class Searcher {
         }
     }
 
-    private void handlePlusWords(HashMap<String, WordInfo> allCandidates, List<String> plusWords) {
+    private void handlePlusWords(HashMap<String, WordInfo> allCandidates) {
         for (String plusWord : plusWords) {
             for (WordInfo wordInfo : searchForAWord(plusWord)) {
                 allCandidates.put(wordInfo.getFileName(), wordInfo);
@@ -90,8 +93,9 @@ public class Searcher {
     }
 
     private void printResults(List<WordInfo> candidates) {
-        if (candidates == null) {
-            System.out.println("there is no match!");
+        if (candidates == null || candidates.size() == 0) {
+            System.out.println(ConsoleColors.ANSI_RED + "please try a different keyword for your search!"
+                    + ConsoleColors.ANSI_RESET);
             return;
         }
         for (WordInfo candidate : candidates)
@@ -101,13 +105,12 @@ public class Searcher {
     }
 
 
-
     private List<WordInfo> searchForAWord(String word) {
         word = word.toLowerCase();
         return invertedIndex.getIndex().get(word);
     }
 
-    private void deleteMinusWordsFromCandidates(List<String> minusWords, List<WordInfo> candidates) {
+    private void deleteMinusWordsFromCandidates(List<WordInfo> candidates) {
         for (String minusWord : minusWords) {
             List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
             for (WordInfo toBeRemovedDoc : toBeRemovedDocs)
