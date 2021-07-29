@@ -9,16 +9,19 @@ public class InvertedIndex {
         stopWords = Arrays.asList(FileReader.readFileContent(new File("src/main/resources/stopWords.txt")).split(","));
     }
 
-    private Map<String, List<WordInfo>> index = new HashMap<>();
+    private final Map<String, List<WordInfo>> index = new HashMap<>();
+
+    public static List<String> getStopWords() {
+        return stopWords;
+    }
 
     public void indexAllFiles(String folderAddress) {
         File folder = new File(folderAddress);
         File[] listOfFiles = folder.listFiles();
 
         System.out.println("indexing...");
-        for (File listOfFile : listOfFiles) {
+        for (File listOfFile : listOfFiles)
             indexFile(new File(folderAddress + "/" + listOfFile.getName()));
-        }
         System.out.println("indexing completed.");
     }
 
@@ -35,10 +38,6 @@ public class InvertedIndex {
             List<WordInfo> idx = index.computeIfAbsent(word, k -> new LinkedList<>());
             idx.add(new WordInfo(fileName, position));
         }
-    }
-
-    public static List<String> getStopWords() {
-        return stopWords;
     }
 
     public Map<String, List<WordInfo>> getIndex() {
