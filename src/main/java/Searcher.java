@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class Searcher {
 
     private static InvertedIndex invertedIndex;
-    List<String> words;
-    List<String> plusWords;
-    List<String> minusWords;
+    private List<String> words;
+    private List<String> plusWords;
+    private List<String> minusWords;
 
     public void run(String folderAddress) {
         invertedIndex = new InvertedIndex();
@@ -18,7 +18,9 @@ public class Searcher {
             System.out.println("enter a word for search or EXIT to exit:");
             String input = scanner.nextLine();
             if (input.equals("EXIT")) return;
-            printResults(search(new SearchingExpression(input)));
+            SearchingExpression searchingExpression = new SearchingExpression(input);
+            init(searchingExpression);
+            printResults(search(searchingExpression));
             System.out.println("---------------------------------------------------");
         }
     }
@@ -30,7 +32,6 @@ public class Searcher {
     }
 
     public List<WordInfo> search(SearchingExpression searchingExpression) {
-        init(searchingExpression);
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         List<WordInfo> candidates = null;
 
