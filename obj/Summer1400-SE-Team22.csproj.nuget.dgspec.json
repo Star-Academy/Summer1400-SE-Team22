@@ -1,0 +1,58 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\project\\c# projects\\phase4\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj": {}
+  },
+  "projects": {
+    "E:\\project\\c# projects\\phase4\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\project\\c# projects\\phase4\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj",
+        "projectName": "Summer1400-SE-Team22",
+        "projectPath": "E:\\project\\c# projects\\phase4\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj",
+        "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
+        "outputPath": "E:\\project\\c# projects\\phase4\\Summer1400-SE-Team22\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
