@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Summer1400_SE_Team22
 {
@@ -6,14 +7,12 @@ namespace Summer1400_SE_Team22
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            using (var sr = new StreamReader("Database/Students.json"))
+            {
+                var serializedItem = JsonSerializer.De(item);
             }
-    }
 
-    class Student
-    {
-        int StudentNumber;
-        string FirstName;
-        string LastName; 
+        }
     }
+    
 }
