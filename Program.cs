@@ -32,7 +32,7 @@ namespace Summer1400_SE_Team22
         private static void PrintResult(List<Student> studentsList){
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("Rank: " + (i+1) + ", name: " + studentsList.ElementAt(i).FirstName + " " + studentsList.ElementAt(i).LastName + ", GPA: " + studentsList.ElementAt(i).GPA) ;
+                Console.WriteLine("Rank: " + (i+1) + ", name: " + studentsList.ElementAt(i).FirstName + " " + studentsList.ElementAt(i).LastName + ", GPA: " + studentsList.ElementAt(i).GPA.ToString("N2")) ;
             }
         }
 
