@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Summer1400_SE_Team22
 {
@@ -9,10 +11,11 @@ namespace Summer1400_SE_Team22
         {
             using (var sr = new StreamReader("Database/Students.json"))
             {
-                var serializedItem = JsonSerializer.De(item);
+                WeatherForecast weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonString);
+                var serializedItem = JsonSerializer.;
             }
-
         }
     }
-    
+
+
 }
