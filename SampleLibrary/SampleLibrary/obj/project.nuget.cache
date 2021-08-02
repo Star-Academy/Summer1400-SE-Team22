@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "hscvMlkPy7G8TE69Sw9tYshuG+aHL6rd54+jk/3N2SkoAO1b3dhKrq7LQQsc6FD0/6scOsCHe9gXwfLeq6N25w==",
+  "success": true,
+  "projectFilePath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
