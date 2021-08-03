@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SampleLibrary
 {
-    public class FileReader
+    public static class FileReader
     {
         public static string ReadFileContent(string fileAddress)
         {
