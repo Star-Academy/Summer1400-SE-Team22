@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj": {}
+    "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj": {}
   },
   "projects": {
-    "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj": {
+    "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+        "projectUniqueName": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
         "projectName": "SampleLibrary.Test",
-        "projectPath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+        "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
         "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-        "outputPath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\obj\\",
+        "outputPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -25,8 +25,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
-                "projectPath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
+              "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+                "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
               }
             }
           }
@@ -76,14 +76,14 @@
         }
       }
     },
-    "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+    "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectUniqueName": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "projectName": "SampleLibrary",
-        "projectPath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-        "outputPath": "E:\\project\\CodeStar\\phase_4\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\obj\\",
+        "outputPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
