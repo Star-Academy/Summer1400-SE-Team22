@@ -4,19 +4,22 @@ namespace SampleLibrary.Test
 {
     public class InvertedIndexTest
     {
-
         [Fact]
-        private void IndexAllFilesTest() {
-            InvertedIndex invertedIndex = new InvertedIndex();
-            // assertDoesNotThrow(() ->
-            //     invertedIndex.indexAllFiles("src/main/resources/SampleEnglishData/EnglishData"));
-            // assertNotNull(invertedIndex.getIndex());
+        private void IndexAllFilesTest()
+        {
+            var invertedIndex = new InvertedIndex();
+
+            var exception = Record.Exception(() =>
+                invertedIndex.IndexAllFiles("EnglishData"));
+
+            Assert.Null(exception);
+            Assert.NotNull(invertedIndex.Index);
         }
 
         [Fact]
-        private void GetStopWordsTest() {
-            InvertedIndex invertedIndex = new InvertedIndex();
-            // assertEquals(InvertedIndex.getStopWords().size(), 119);
+        private void GetStopWordsTest()
+        {
+            Assert.Equal(119, InvertedIndex.StopWords.Count);
         }
     }
 }
