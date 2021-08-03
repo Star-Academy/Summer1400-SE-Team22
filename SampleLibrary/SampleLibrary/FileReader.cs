@@ -7,7 +7,14 @@ namespace SampleLibrary
     {
         public static string ReadFileContent(string fileAddress)
         {
-            return File.ReadAllText(fileAddress);
+            try
+            {
+                return File.ReadAllText(fileAddress);
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
     }
 }
