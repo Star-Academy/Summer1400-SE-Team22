@@ -17,10 +17,9 @@ namespace Summer1400_SE_Team22
             string scoresJson = File.ReadAllText("Database/Scores.json");
             LessonScore[] scores = JsonSerializer.Deserialize<LessonScore[]>(scoresJson);
             
-            for (int i = 0; i < scores.Length; i++)
-            {
-                students[scores[i].StudentNumber - 1].AddAnScore(scores[i].Score);
-            }
+            
+            foreach (var x in scores) students[x.StudentNumber - 1].AddAnScore(x.Score);
+
             
             CalculateGPA(students);
 
@@ -40,9 +39,8 @@ namespace Summer1400_SE_Team22
             for (int i = 0; i < students.Length; i++)
             {
                 double sumOfGrades = 0;
-                for (int j = 0 ; j < students[i].Scores.Count; j++) {
-                    sumOfGrades += students[i].Scores.ElementAt(j);
-                }
+                foreach (var x in students[i].Scores) sumOfGrades += x;
+                
                 students[i].GPA = (double)(sumOfGrades / students[i].Scores.Count);
             }          
         }
