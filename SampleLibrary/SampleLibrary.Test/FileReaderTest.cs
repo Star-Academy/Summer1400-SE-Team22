@@ -5,6 +5,7 @@ namespace SampleLibrary.Test
 {
     public class FileReaderTest
     {
+
         [Fact]
         private void ReadFileContentTest()
         {
