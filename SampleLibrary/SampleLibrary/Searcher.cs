@@ -41,8 +41,7 @@ namespace SampleLibrary
             }
             catch (Exception)
             {
-                Console.WriteLine("please try a different keyword for your search!"
-                );
+                Console.WriteLine("please try a different keyword for your search!");
                 return null;
             }
 
