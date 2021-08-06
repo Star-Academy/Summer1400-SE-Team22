@@ -5,7 +5,7 @@ namespace SampleLibrary
 {
     public class Searcher
     {
-        private static InvertedIndex InvertedIndex { get; set; }
+        public static InvertedIndex InvertedIndex { get; set; }
 
         public void Run(string folderAddress)
         {
@@ -21,7 +21,7 @@ namespace SampleLibrary
             }
         }
 
-        private List<WordInfo> Search(string searchingExpression)
+        public List<WordInfo> Search(string searchingExpression)
         {
             Dictionary<string, WordInfo> allCandidates = new Dictionary<string, WordInfo>();
             searchingExpression = searchingExpression.ToLower();
