@@ -1,4 +1,3 @@
 # Summer1400-SE-Team 22
-https://github.com/Star-Academy/codestar-intern-issues/issues/259
 
-https://github.com/Star-Academy/codestar-internship/blob/master/Projects/Phase01-Search/Phase01-Search.md
+[![build](https://github.com/Star-Academy/Summer1400-SE-Team22/actions/workflows/buildPipeline.yml/badge.svg)](https://github.com/Star-Academy/Summer1400-SE-Team22/actions/workflows/buildPipeline.yml)
