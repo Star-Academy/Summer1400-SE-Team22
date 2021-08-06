@@ -11,6 +11,8 @@ namespace SampleLibrary.Test
     {
         private static InvertedIndex invertedIndex = new();
         private static Searcher searcher = new();
+        private TextWriter _savedOut;
+        private TextReader _savedIn;
 
 
         public override void Before(MethodInfo methodUnderTest)
@@ -18,7 +20,14 @@ namespace SampleLibrary.Test
             invertedIndex = new InvertedIndex();
             searcher = new Searcher();
             invertedIndex.IndexAllFiles("src/test/java/TestResources/EnglishData");
-            Searcher.InvertedIndex = (invertedIndex);
+            Searcher.InvertedIndex = invertedIndex;
+
+            SaveConsoleDefaults();
+        }
+
+        public override void After(MethodInfo methodUnderTest)
+        {
+            RestoreDefaultConsole();
         }
 
         [Fact]
@@ -39,7 +48,7 @@ namespace SampleLibrary.Test
         private void NormalWordsSearch()
         {
             List<WordInfo> result = searcher.Search("ali va hasan godratmand");
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Equal("3", result[0].GetFileName());
         }
 
@@ -98,60 +107,64 @@ namespace SampleLibrary.Test
         [Fact]
         private void NotExistWordsSearch()
         {
-            // ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            // System.setOut(new PrintStream(outContent));
-            // outContent.reset();
-            // List<WordInfo> result = searcher.Search("inkalamehvojoodnadaradaziz");
-            // Method printResultMethod = Class.forName("Searcher").getDeclaredMethod("printResults", List.class);
-            // printResultMethod.setAccessible(true);
-            // printResultMethod.invoke(searcher, result);
-            // Assert.Equal(null, result);
-            // assert(outContent.toString().contains("there is no match!"));
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            List<WordInfo> result = searcher.Search("inkalamehvojoodnadaradaziz");
+            new Searcher().printResults(result);
+            Assert.Null(result);
+            Assert.Contains("there is no match!", output.ToString());
         }
 
         [Fact]
         private void DeleteMinusWordsFromEmptyResultTest()
         {
-            // ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            // System.setOut(new PrintStream(outContent));
-            // outContent.reset();
-            // Assertions.assertDoesNotThrow(()->searcher.Search("-kid"));
-            // assert(outContent.toString().contains("please try a different keyword for your search!"));
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            Assert.Null(Record.Exception(() =>
+                searcher.Search("-kid")));
+            Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
 
         [Fact]
         private void MainTest()
         {
-            var savedOut = Console.Out;
-            var savedIn = Console.In;
-
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var data = String.Join(Environment.NewLine, "hello\nexit");
+            var data = string.Join(Environment.NewLine, "hello\nexit");
             Console.SetIn(new StringReader(data));
 
             Assert.Null(Record.Exception(() =>
                 new Searcher().Run("EnglishData")));
 
             Assert.Contains("File name: ", output.ToString());
+        }
 
-            Console.SetOut(savedOut);
-            Console.SetIn(savedIn);
+        private void SaveConsoleDefaults()
+        {
+            _savedOut = Console.Out;
+            _savedIn = Console.In;
+        }
+
+        private void RestoreDefaultConsole()
+        {
+            Console.SetOut(_savedOut);
+            Console.SetIn(_savedIn);
         }
 
         [Fact]
         void MainTest2()
         {
-            // InputStream sysInBackup = System.in;
-            // ByteArrayInputStream in = new ByteArrayInputStream(("hello -kid\nexit").getBytes());
-            // System.setIn(in);
-            //
-            // ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            // System.setOut(new PrintStream(outContent));
-            // outContent.reset();
-            //
-            // assertDoesNotThrow(()->Main.main(null));
+            var output = new StringWriter();
+            Console.SetOut(output);
+
+            var data = string.Join(Environment.NewLine, "hello -kid\nexit");
+            Console.SetIn(new StringReader(data));
+
+            Assert.Null(Record.Exception(() =>
+                new Searcher().Run("EnglishData")));
         }
     }
 }

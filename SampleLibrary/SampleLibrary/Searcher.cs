@@ -123,7 +123,7 @@ namespace SampleLibrary
             }
         }
 
-        private void printResults(List<WordInfo> candidates)
+        public void printResults(List<WordInfo> candidates)
         {
             if (candidates == null)
             {

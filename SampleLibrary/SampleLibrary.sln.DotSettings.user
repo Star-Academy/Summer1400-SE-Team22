@@ -4,5 +4,7 @@
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.FileReaderTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.InvertedIndexTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.SearcherTest.MainTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.SearcherTest.MainTest2&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.SearcherTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
