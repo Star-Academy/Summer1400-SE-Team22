@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Xunit;
 using Xunit.Sdk;
@@ -121,23 +122,22 @@ namespace SampleLibrary.Test
         [Fact]
         private void MainTest()
         {
+            var savedOut = Console.Out;
+            var savedIn = Console.In;
+
+            var output = new StringWriter();
+            Console.SetOut(output);
+
             var data = String.Join(Environment.NewLine, "hello\nexit");
-            Console.SetIn(new System.IO.StringReader(data));
+            Console.SetIn(new StringReader(data));
 
+            Assert.Null(Record.Exception(() =>
+                new Searcher().Run("EnglishData")));
 
-            // InputStream sysInBackup = System.in;
-            // ByteArrayInputStream in = new ByteArrayInputStream(().getBytes());
-            // System.setIn(in);
+            Assert.Contains("File name: ", output.ToString());
 
-            // ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            // System.setOut(new PrintStream(outContent));
-            // outContent.reset();
-            //
-            // assertDoesNotThrow(()->Main.main(null));
-            //
-            // assert(outContent.toString().contains("File name: "));
-            //
-            // System.setIn(sysInBackup);
+            Console.SetOut(savedOut);
+            Console.SetIn(savedIn);
         }
 
         [Fact]
