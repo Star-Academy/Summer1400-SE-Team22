@@ -3526,11 +3526,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+      "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
       "projectName": "SampleLibrary.Test",
-      "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+      "projectPath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
       "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-      "outputPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary.Test\\obj\\",
+      "outputPath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3544,8 +3544,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
-              "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
+            "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+              "projectPath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
             }
           }
         }

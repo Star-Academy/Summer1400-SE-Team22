@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+      "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
       "projectName": "SampleLibrary",
-      "projectPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+      "projectPath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
       "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-      "outputPath": "E:\\project\\CodeStar\\4thPhase\\SampleLibrary\\SampleLibrary\\obj\\",
+      "outputPath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
