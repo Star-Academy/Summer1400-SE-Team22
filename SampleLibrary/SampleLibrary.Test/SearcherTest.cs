@@ -9,8 +9,8 @@ namespace SampleLibrary.Test
 {
     public class SearcherTest : BeforeAfterTestAttribute
     {
-        private static InvertedIndex _invertedIndex = new();
-        private static Searcher _searcher = new();
+        private static InvertedIndex _invertedIndex = new InvertedIndex();
+        private static Searcher _searcher = new Searcher();
         private TextWriter _savedOut;
         private TextReader _savedIn;
 
