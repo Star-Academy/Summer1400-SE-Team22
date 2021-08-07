@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Summer1400_SE_Team22
 {
-    class Program
+    internal class Program
     {
         private static void Main()
         {
@@ -22,26 +22,25 @@ namespace Summer1400_SE_Team22
             foreach (var s in students.ToList().OrderByDescending(student => student.GPA).Take(3))
                 Console.WriteLine($"-> name: {s.FirstName} {s.LastName}, GPA: {s.GPA:N2}");
         }
-    }
 
-    public abstract class Student
-    {
-        public int StudentNumber { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public List<double> Scores = new List<double>();
-        public double GPA { get; set; } = 0;
 
-        public void AddAnScore(double score)
+        private class Student
         {
-            Scores.Add(score);
-        }
-    }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public readonly List<double> Scores = new List<double>();
+            public double GPA { get; set; }
 
-    public abstract class LessonScore
-    {
-        public int StudentNumber { get; set; }
-        public string Lesson { get; set; }
-        public double Score { get; set; }
+            public void AddAnScore(double score)
+            {
+                Scores.Add(score);
+            }
+        }
+
+        private class LessonScore
+        {
+            public int StudentNumber { get; set; }
+            public double Score { get; set; }
+        }
     }
 }
