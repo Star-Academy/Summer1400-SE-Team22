@@ -37,3 +37,16 @@ E:\project\CodeStar\4thPhase\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.runtim
 E:\project\CodeStar\4thPhase\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.dll
 E:\project\CodeStar\4thPhase\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.pdb
 E:\project\CodeStar\4thPhase\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.genruntimeconfig.cache
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.exe
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.deps.json
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.runtimeconfig.json
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.runtimeconfig.dev.json
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.dll
+E:\temperory\Summer1400-SE-Team22\bin\Debug\netcoreapp3.1\Summer1400-SE-Team22.pdb
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.csprojAssemblyReference.cache
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.AssemblyInfoInputs.cache
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.AssemblyInfo.cs
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.csproj.CoreCompileInputs.cache
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.dll
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.pdb
+E:\temperory\Summer1400-SE-Team22\obj\Debug\netcoreapp3.1\Summer1400-SE-Team22.genruntimeconfig.cache
