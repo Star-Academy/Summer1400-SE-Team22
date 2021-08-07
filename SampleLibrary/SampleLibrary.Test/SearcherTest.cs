@@ -32,12 +32,6 @@ namespace SampleLibrary.Test
         {
             var result = _searcher.Search("ali");
             Assert.Equal(7, result.Count);
-            var i = 1;
-            foreach (var wordInfo in result)
-            {
-                Assert.Contains(i.ToString(), wordInfo.GetFileName());
-                i++;
-            }
         }
 
         [Fact]
