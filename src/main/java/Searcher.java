@@ -20,7 +20,7 @@ public class Searcher {
             if (input.equals("EXIT")) return;
             SearchingExpression searchingExpression = new SearchingExpression(input);
             init(searchingExpression);
-            printResults(search(searchingExpression));
+            printResults(search());
             System.out.println("---------------------------------------------------");
         }
     }
@@ -31,9 +31,9 @@ public class Searcher {
         minusWords = searchingExpression.getMinusWords();
     }
 
-    public List<WordInfo> search(SearchingExpression searchingExpression) {
+    public List<WordInfo> search() {
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
-        List<WordInfo> candidates = null;
+        List<WordInfo> candidates;
 
         int navigatingIndex = 0;
         try {
