@@ -15,7 +15,7 @@ namespace SampleLibrary.Test
         private TextReader _savedIn;
 
 
-        public override void Before(MethodInfo methodUnderTest)
+        public SearcherTest()
         {
             SetUpInvertedIndex("TestResources/EnglishData");
 
@@ -30,13 +30,13 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordSearch()
         {
-            List<WordInfo> result = _searcher.Search("ali");
-            Assert.Equal(6, result.Count);
+            var result = _searcher.Search("ali");
+            Assert.Equal(7, result.Count);
             int i = 1;
             foreach (WordInfo wordInfo in
                 result)
             {
-                Assert.Equal(i + "", wordInfo.GetFileName());
+                Assert.Equal("TestResources/EnglishData\\" + i, wordInfo.GetFileName());
                 i++;
             }
         }
@@ -44,9 +44,9 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordsSearch()
         {
-            List<WordInfo> result = _searcher.Search("ali va hasan godratmand");
+            var result = _searcher.Search("ali va hasan godratmand");
             Assert.Single(result);
-            Assert.Equal("3", result[0].GetFileName());
+            Assert.Equal("TestResources/EnglishData\\3", result[0].GetFileName());
         }
 
         [Fact]
@@ -54,28 +54,28 @@ namespace SampleLibrary.Test
         {
             var result = _searcher.Search("ali va hasan is godratmand");
             Assert.Single(result);
-            Assert.Equal("4", result[0].GetFileName());
+            Assert.Equal("TestResources/EnglishData\\4", result[0].GetFileName());
         }
 
 
         [Fact]
         private void PlusWordsSearchOne()
         {
-            List<WordInfo> result = _searcher.Search("+ali va hasan godratmand");
+            var result = _searcher.Search("+ali va hasan godratmand");
             Assert.Equal(7, result.Count);
         }
 
         [Fact]
         private void PlusWordsSearchTwo()
         {
-            List<WordInfo> result = _searcher.Search("ali va +hasan godratmand");
+            var result = _searcher.Search("ali va +hasan godratmand");
             Assert.Equal(5, result.Count);
         }
 
         [Fact]
         private void MinusWordSearch()
         {
-            List<WordInfo> result = _searcher.Search("ali -hasan");
+            var result = _searcher.Search("ali -hasan");
             Assert.Equal(2, result.Count);
         }
 
@@ -85,7 +85,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            List<WordInfo> result = _searcher.Search("is");
+            var result = _searcher.Search("is");
             Assert.Null(result);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
@@ -107,7 +107,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            List<WordInfo> result = _searcher.Search("inkalamehvojoodnadaradaziz");
+            var result = _searcher.Search("inkalamehvojoodnadaradaziz");
             Searcher.PrintResults(result);
             Assert.Null(result);
             Assert.Contains("there is no match!", output.ToString());

@@ -106,7 +106,10 @@ namespace SampleLibrary
             foreach (var candidate in
                 candidates)
             {
-                allCandidates.Add(candidate.GetFileName(), candidate);
+                if (!allCandidates.ContainsKey(candidate.GetFileName()))
+                {
+                    allCandidates.Add(candidate.GetFileName(), candidate);
+                }
             }
         }
 
@@ -117,7 +120,8 @@ namespace SampleLibrary
                 foreach (WordInfo wordInfo in
                     SearchForAWord(plusWord))
                 {
-                    allCandidates.Add(wordInfo.GetFileName(), wordInfo);
+                    if (!allCandidates.ContainsKey(wordInfo.GetFileName()))
+                        allCandidates.Add(wordInfo.GetFileName(), wordInfo);
                 }
             }
         }
