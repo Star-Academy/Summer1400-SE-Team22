@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SampleLibrary
 {
@@ -23,15 +24,15 @@ namespace SampleLibrary
 
         public List<WordInfo> Search(string searchingExpression)
         {
-            Dictionary<string, WordInfo> allCandidates = new Dictionary<string, WordInfo>();
+            var allCandidates = new Dictionary<string, WordInfo>();
             searchingExpression = searchingExpression.ToLower();
-            List<string> words = new List<string>(searchingExpression.Split(' '));
-            List<string> plusWords = new List<string>();
-            List<string> minusWords = new List<string>();
+            var words = new List<string>(searchingExpression.Split(' '));
+            var plusWords = new List<string>();
+            var minusWords = new List<string>();
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
-            int navigatingIndex = 0;
+            var navigatingIndex = 0;
             try
             {
                 while (InvertedIndex.StopWords.Contains(words[navigatingIndex]))
@@ -55,17 +56,17 @@ namespace SampleLibrary
                 return null;
             }
 
-            int ignoredCounter = 0;
+            var ignoredCounter = 0;
             for (navigatingIndex += 1; navigatingIndex < words.Count; navigatingIndex++)
             {
-                string word = words[navigatingIndex];
+                var word = words[navigatingIndex];
                 if (InvertedIndex.StopWords.Contains(word))
                 {
                     ignoredCounter++;
                     continue;
                 }
 
-                List<WordInfo> demo = SearchForAWord(words[navigatingIndex]);
+                var demo = SearchForAWord(words[navigatingIndex]);
                 ReduceResultsToMatchSearch(candidates, ignoredCounter, demo);
                 HandlePlusWords(allCandidates, plusWords);
                 ignoredCounter = 0;
@@ -77,23 +78,21 @@ namespace SampleLibrary
             return candidates;
         }
 
-        private static void ReduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo)
+        private static void ReduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter,
+            IReadOnlyCollection<WordInfo> demo)
         {
-            for (int j = candidates.Count - 1; j >= 0; j--)
+            for (var j = candidates.Count - 1; j >= 0; j--)
             {
-                WordInfo candidate = candidates[j];
-                bool isExist = false;
+                var candidate = candidates[j];
+                var isExist = false;
 
-                foreach (WordInfo wordInfo in
-                    demo)
+                foreach (var wordInfo in demo.Where(wordInfo => wordInfo.GetFileName() == candidate.GetFileName()
+                                                                && candidate.GetPosition() + ignoredCounter + 1 ==
+                                                                wordInfo.GetPosition()))
                 {
-                    if (wordInfo.GetFileName() == candidate.GetFileName()
-                        && candidate.GetPosition() + ignoredCounter + 1 == wordInfo.GetPosition())
-                    {
-                        candidates[j] = wordInfo;
-                        isExist = true;
-                        break;
-                    }
+                    candidates[j] = wordInfo;
+                    isExist = true;
+                    break;
                 }
 
                 if (!isExist)
@@ -101,28 +100,22 @@ namespace SampleLibrary
             }
         }
 
-        private static void SumResultsWithPlusWords(Dictionary<string, WordInfo> allCandidates, List<WordInfo> candidates)
+        private static void SumResultsWithPlusWords(Dictionary<string, WordInfo> allCandidates,
+            IEnumerable<WordInfo> candidates)
         {
             foreach (var candidate in
-                candidates)
+                candidates.Where(candidate => !allCandidates.ContainsKey(candidate.GetFileName())))
             {
-                if (!allCandidates.ContainsKey(candidate.GetFileName()))
-                {
-                    allCandidates.Add(candidate.GetFileName(), candidate);
-                }
+                allCandidates.Add(candidate.GetFileName(), candidate);
             }
         }
 
-        private void HandlePlusWords(Dictionary<string, WordInfo> allCandidates, List<string> plusWords)
+        private static void HandlePlusWords(Dictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
-            foreach (string plusWord in plusWords)
+            foreach (var wordInfo in plusWords.SelectMany(plusWord =>
+                SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.GetFileName()))))
             {
-                foreach (WordInfo wordInfo in
-                    SearchForAWord(plusWord))
-                {
-                    if (!allCandidates.ContainsKey(wordInfo.GetFileName()))
-                        allCandidates.Add(wordInfo.GetFileName(), wordInfo);
-                }
+                allCandidates.Add(wordInfo.GetFileName(), wordInfo);
             }
         }
 
@@ -134,18 +127,18 @@ namespace SampleLibrary
                 return;
             }
 
-            foreach (WordInfo candidate in
-                candidates)
+            foreach (var candidate in candidates)
                 Console.WriteLine("File name: " + candidate.GetFileName()
                                                 + " ApproximatePosition: " +
                                                 +(candidate.GetPosition() - candidates.Count + 1));
         }
 
-        private static void IsolatePlusAndMinusWords(List<string> words, List<string> plusWords, List<string> minusWords)
+        private static void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
+            ICollection<string> minusWords)
         {
-            for (int i = words.Count - 1; i >= 0; i--)
+            for (var i = words.Count - 1; i >= 0; i--)
             {
-                string word = words[i];
+                var word = words[i];
                 if (word.StartsWith("+"))
                 {
                     plusWords.Add(word.Substring(1));
@@ -165,20 +158,15 @@ namespace SampleLibrary
             return InvertedIndex.Index[word];
         }
 
-        private static void DeleteMinusWordsFromCandidates(List<string> minusWords, List<WordInfo> candidates)
+        private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
         {
-            foreach (string minusWord in
-                minusWords)
+            foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
+                .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
             {
-                List<WordInfo> toBeRemovedDocs = SearchForAWord(minusWord);
-                foreach (WordInfo toBeRemovedDoc in
-                    toBeRemovedDocs)
+                for (var j = candidates.Count - 1; j >= 0; j--)
                 {
-                    for (int j = candidates.Count - 1; j >= 0; j--)
-                    {
-                        if (candidates[j].GetFileName() == (toBeRemovedDoc.GetFileName()))
-                            candidates.RemoveAt(j);
-                    }
+                    if (candidates[j].GetFileName() == (toBeRemovedDoc.GetFileName()))
+                        candidates.RemoveAt(j);
                 }
             }
         }
