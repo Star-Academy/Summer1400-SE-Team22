@@ -17,10 +17,7 @@ namespace SampleLibrary.Test
 
         public override void Before(MethodInfo methodUnderTest)
         {
-            _invertedIndex = new InvertedIndex();
-            _searcher = new Searcher();
-            _invertedIndex.IndexAllFiles("EnglishData");
-            Searcher.InvertedIndex = _invertedIndex;
+            SetUpInvertedIndex("TestResources/EnglishData");
 
             SaveConsoleDefaults();
         }
@@ -34,7 +31,7 @@ namespace SampleLibrary.Test
         private void NormalWordSearch()
         {
             List<WordInfo> result = _searcher.Search("ali");
-            Assert.Equal(7, result.Count);
+            Assert.Equal(6, result.Count);
             int i = 1;
             foreach (WordInfo wordInfo in
                 result)
@@ -111,7 +108,7 @@ namespace SampleLibrary.Test
             Console.SetOut(output);
 
             List<WordInfo> result = _searcher.Search("inkalamehvojoodnadaradaziz");
-            new Searcher().printResults(result);
+            Searcher.PrintResults(result);
             Assert.Null(result);
             Assert.Contains("there is no match!", output.ToString());
         }
@@ -130,6 +127,8 @@ namespace SampleLibrary.Test
         [Fact]
         private void MainTest()
         {
+            SetUpInvertedIndex("EnglishData");
+
             var output = new StringWriter();
             Console.SetOut(output);
 
@@ -140,6 +139,14 @@ namespace SampleLibrary.Test
                 new Searcher().Run("EnglishData")));
 
             Assert.Contains("File name: ", output.ToString());
+        }
+
+        private static void SetUpInvertedIndex(string folder)
+        {
+            _invertedIndex = new InvertedIndex();
+            _searcher = new Searcher();
+            _invertedIndex.IndexAllFiles(folder);
+            Searcher.InvertedIndex = _invertedIndex;
         }
 
         private void SaveConsoleDefaults()
@@ -157,6 +164,8 @@ namespace SampleLibrary.Test
         [Fact]
         void MainTest2()
         {
+            SetUpInvertedIndex("EnglishData");
+
             var output = new StringWriter();
             Console.SetOut(output);
 

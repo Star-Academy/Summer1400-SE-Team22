@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2M5mPggRw71WNRzRALoYElGBgp2lnv0RKqQ2UGKHZogHymKJn6jlAY4C3Chk+hq28ks529KvLhg62YdCilm+HA==",
+  "dgSpecHash": "ZUApx9TDpBJNuP36DtU413aus9WCE6+FylLppzeD0xwedpsxIAMeVzm+kNCjvC2qdbN4W9huxv3CYeLMfKbLOQ==",
   "success": true,
-  "projectFilePath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+  "projectFilePath": "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

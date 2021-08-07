@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fVLiqpFs55JINX8O4BvWoVQVGGPJgkGksvJVtQSp39jnbFbm/UYqD38WosX5LsmYTYAFrzKSLp7hWEW22gSg2w==",
+  "dgSpecHash": "95aAK2uB+sHgN3icFdDY+dHvHFO2dU+FswqNpdRSUpKZwxjd+MiUXxnX7gKszFKNyajLYSV6+b/mAekE6S+aLw==",
   "success": true,
-  "projectFilePath": "E:\\project\\c# projects\\CodeStar\\a\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+  "projectFilePath": "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",

@@ -16,7 +16,7 @@ namespace SampleLibrary
                 Console.WriteLine("enter a word for search:");
                 string input = Console.ReadLine();
                 if (input == "exit") return;
-                printResults(Search(input));
+                PrintResults(Search(input));
                 Console.WriteLine("---------------------------------------------------");
             }
         }
@@ -29,7 +29,7 @@ namespace SampleLibrary
             List<string> plusWords = new List<string>();
             List<string> minusWords = new List<string>();
 
-            isolatePlusAndMinusWords(words, plusWords, minusWords);
+            IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
             int navigatingIndex = 0;
             try
@@ -48,7 +48,7 @@ namespace SampleLibrary
             List<WordInfo> candidates;
             try
             {
-                candidates = new List<WordInfo>(searchForAWord(words[navigatingIndex]));
+                candidates = new List<WordInfo>(SearchForAWord(words[navigatingIndex]));
             }
             catch (Exception)
             {
@@ -65,19 +65,19 @@ namespace SampleLibrary
                     continue;
                 }
 
-                List<WordInfo> demo = searchForAWord(words[navigatingIndex]);
-                reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
+                List<WordInfo> demo = SearchForAWord(words[navigatingIndex]);
+                ReduceResultsToMatchSearch(candidates, ignoredCounter, demo);
                 HandlePlusWords(allCandidates, plusWords);
                 ignoredCounter = 0;
             }
 
-            sumResultsWithPlusWords(allCandidates, candidates);
+            SumResultsWithPlusWords(allCandidates, candidates);
             candidates = new List<WordInfo>(allCandidates.Values);
             DeleteMinusWordsFromCandidates(minusWords, candidates);
             return candidates;
         }
 
-        private void reduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo)
+        private static void ReduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo)
         {
             for (int j = candidates.Count - 1; j >= 0; j--)
             {
@@ -101,7 +101,7 @@ namespace SampleLibrary
             }
         }
 
-        private void sumResultsWithPlusWords(Dictionary<string, WordInfo> allCandidates, List<WordInfo> candidates)
+        private static void SumResultsWithPlusWords(Dictionary<string, WordInfo> allCandidates, List<WordInfo> candidates)
         {
             foreach (var candidate in
                 candidates)
@@ -115,14 +115,14 @@ namespace SampleLibrary
             foreach (string plusWord in plusWords)
             {
                 foreach (WordInfo wordInfo in
-                    searchForAWord(plusWord))
+                    SearchForAWord(plusWord))
                 {
                     allCandidates.Add(wordInfo.GetFileName(), wordInfo);
                 }
             }
         }
 
-        public void printResults(List<WordInfo> candidates)
+        public static void PrintResults(List<WordInfo> candidates)
         {
             if (candidates == null)
             {
@@ -137,7 +137,7 @@ namespace SampleLibrary
                                                 +(candidate.GetPosition() - candidates.Count + 1));
         }
 
-        private void isolatePlusAndMinusWords(List<string> words, List<string> plusWords, List<string> minusWords)
+        private static void IsolatePlusAndMinusWords(List<string> words, List<string> plusWords, List<string> minusWords)
         {
             for (int i = words.Count - 1; i >= 0; i--)
             {
@@ -155,18 +155,18 @@ namespace SampleLibrary
             }
         }
 
-        private List<WordInfo> searchForAWord(string word)
+        private static List<WordInfo> SearchForAWord(string word)
         {
             word = word.ToLower();
             return InvertedIndex.Index[word];
         }
 
-        private void DeleteMinusWordsFromCandidates(List<string> minusWords, List<WordInfo> candidates)
+        private static void DeleteMinusWordsFromCandidates(List<string> minusWords, List<WordInfo> candidates)
         {
             foreach (string minusWord in
                 minusWords)
             {
-                List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
+                List<WordInfo> toBeRemovedDocs = SearchForAWord(minusWord);
                 foreach (WordInfo toBeRemovedDoc in
                     toBeRemovedDocs)
                 {
