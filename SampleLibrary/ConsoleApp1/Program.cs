@@ -1,15 +1,12 @@
-﻿using System;
-using SampleLibrary;
+﻿using SampleLibrary;
 
 namespace ConsoleApp1
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            var _invertedIndex = new InvertedIndex();
-            var _searcher = new Searcher();
-            _invertedIndex.IndexAllFiles("EnglishData");
+
         }
     }
 }

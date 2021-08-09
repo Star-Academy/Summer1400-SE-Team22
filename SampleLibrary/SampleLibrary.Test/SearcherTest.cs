@@ -30,14 +30,14 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordSearch()
         {
-            var result = _searcher.Search("ali");
+            var result = Searcher.Search("ali");
             Assert.Equal(7, result.Count);
         }
 
         [Fact]
         private void NormalWordsSearch()
         {
-            var result = _searcher.Search("ali va hasan godratmand");
+            var result = Searcher.Search("ali va hasan godratmand");
             Assert.Single(result);
             Assert.Contains("3", result[0].GetFileName());
         }
@@ -45,7 +45,7 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordsWithStopWordsBetweenSearch()
         {
-            var result = _searcher.Search("ali va hasan is godratmand");
+            var result = Searcher.Search("ali va hasan is godratmand");
             Assert.Single(result);
             Assert.Contains("4", result[0].GetFileName());
         }
@@ -54,21 +54,21 @@ namespace SampleLibrary.Test
         [Fact]
         private void PlusWordsSearchOne()
         {
-            var result = _searcher.Search("+ali va hasan godratmand");
+            var result = Searcher.Search("+ali va hasan godratmand");
             Assert.Equal(7, result.Count);
         }
 
         [Fact]
         private void PlusWordsSearchTwo()
         {
-            var result = _searcher.Search("ali va +hasan godratmand");
+            var result = Searcher.Search("ali va +hasan godratmand");
             Assert.Equal(5, result.Count);
         }
 
         [Fact]
         private void MinusWordSearch()
         {
-            var result = _searcher.Search("ali -hasan");
+            var result = Searcher.Search("ali -hasan");
             Assert.Equal(2, result.Count);
         }
 
@@ -78,7 +78,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = _searcher.Search("is");
+            var result = Searcher.Search("is");
             Assert.Null(result);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
@@ -89,7 +89,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = _searcher.Search("were is");
+            var result = Searcher.Search("were is");
             Assert.Null(result);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
@@ -100,7 +100,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = _searcher.Search("inkalamehvojoodnadaradaziz");
+            var result = Searcher.Search("inkalamehvojoodnadaradaziz");
             Searcher.PrintResults(result);
             Assert.Null(result);
             Assert.Contains("there is no match!", output.ToString());
@@ -113,7 +113,7 @@ namespace SampleLibrary.Test
             Console.SetOut(output);
 
             Assert.Null(Record.Exception(() =>
-                _searcher.Search("-kid")));
+                Searcher.Search("-kid")));
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
 
@@ -129,7 +129,7 @@ namespace SampleLibrary.Test
             Console.SetIn(new StringReader(data));
 
             Assert.Null(Record.Exception(() =>
-                new Searcher().Run("EnglishData")));
+                Searcher.Run("EnglishData")));
 
             Assert.Contains("File name: ", output.ToString());
         }
@@ -166,7 +166,7 @@ namespace SampleLibrary.Test
             Console.SetIn(new StringReader(data));
 
             Assert.Null(Record.Exception(() =>
-                new Searcher().Run("EnglishData")));
+                Searcher.Run("EnglishData")));
         }
     }
 }

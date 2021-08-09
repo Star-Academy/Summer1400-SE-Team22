@@ -8,7 +8,7 @@ namespace SampleLibrary
     {
         public static InvertedIndex InvertedIndex { get; set; }
 
-        public void Run(string folderAddress)
+        public static void Run(string folderAddress)
         {
             InvertedIndex = new InvertedIndex();
             InvertedIndex.IndexAllFiles(folderAddress);
@@ -22,7 +22,7 @@ namespace SampleLibrary
             }
         }
 
-        public List<WordInfo> Search(string searchingExpression)
+        public static List<WordInfo> Search(string searchingExpression)
         {
             var allCandidates = new Dictionary<string, WordInfo>();
             searchingExpression = searchingExpression.ToLower();
@@ -78,7 +78,7 @@ namespace SampleLibrary
             return candidates;
         }
 
-        private static void ReduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter,
+        private static void ReduceResultsToMatchSearch(IList<WordInfo> candidates, int ignoredCounter,
             IReadOnlyCollection<WordInfo> demo)
         {
             for (var j = candidates.Count - 1; j >= 0; j--)
@@ -100,7 +100,7 @@ namespace SampleLibrary
             }
         }
 
-        private static void SumResultsWithPlusWords(Dictionary<string, WordInfo> allCandidates,
+        private static void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
             IEnumerable<WordInfo> candidates)
         {
             foreach (var candidate in
@@ -110,7 +110,7 @@ namespace SampleLibrary
             }
         }
 
-        private static void HandlePlusWords(Dictionary<string, WordInfo> allCandidates, List<string> plusWords)
+        private static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
             foreach (var wordInfo in plusWords.SelectMany(plusWord =>
                 SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.GetFileName()))))
