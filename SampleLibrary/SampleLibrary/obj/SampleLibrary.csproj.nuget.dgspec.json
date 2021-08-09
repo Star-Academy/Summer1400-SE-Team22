@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {}
+    "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {}
   },
   "projects": {
-    "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+    "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectUniqueName": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "projectName": "SampleLibrary",
-        "projectPath": "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-        "outputPath": "E:\\project\\c# projects\\CodeStar\\4\\SampleLibrary\\SampleLibrary\\obj\\",
+        "outputPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -35,7 +36,16 @@
       },
       "frameworks": {
         "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.17, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -53,7 +63,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
