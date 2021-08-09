@@ -19,7 +19,7 @@ namespace SampleLibrary.Test
         [Fact]
         private void GetStopWordsTest()
         {
-            Assert.Equal(119, InvertedIndex.StopWords.Count);
+            Assert.Equal(119, new InvertedIndex().StopWords.Count);
         }
     }
 }

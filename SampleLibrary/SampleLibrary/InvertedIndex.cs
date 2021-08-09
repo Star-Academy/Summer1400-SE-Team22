@@ -7,7 +7,7 @@ namespace SampleLibrary
 {
     public class InvertedIndex
     {
-        public static List<string> StopWords { get; } =
+        public List<string> StopWords { get; } =
             FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
 
         public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
@@ -27,10 +27,8 @@ namespace SampleLibrary
 
         private void IndexFile(string fileAddress)
         {
-            // String fileName = fileAddress.getName();
-
-            int position = 0;
-            String text = FileReader.ReadFileContent(fileAddress);
+            var position = 0;
+            var text = FileReader.ReadFileContent(fileAddress);
             foreach (var word in text.Split(' '))
             {
                 var wordCopy = word.ToLower();

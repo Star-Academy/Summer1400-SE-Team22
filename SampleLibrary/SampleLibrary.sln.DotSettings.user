@@ -2,5 +2,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2149a337_002D2df5_002D49a7_002D927c_002Db7b365e3cee0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SearcherTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.SearcherTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.InvertedIndexTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.FileReaderTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::.NETCoreApp,Version=v3.1::SampleLibrary.Test.WordInfoTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
