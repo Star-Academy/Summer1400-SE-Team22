@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using System.Linq;
 using Microsoft.Data.SqlClient;
 using SampleLibrary;
 
@@ -8,14 +10,17 @@ namespace ConsoleApp1
     {
         private static void Main()
         {
-            using var context = new SearchContext();
-            Searcher.SearchContext = context;
-            var invertedIndex = new InvertedIndex();
-            Searcher.InvertedIndex = invertedIndex;
-            invertedIndex.IndexAllFiles("EnglishData");
-
-            // context.SaveChanges();
-
+            using (var context = new SearchContext())
+            {
+                Searcher.SearchContext = context;
+                var invertedIndex = new InvertedIndex();
+                Searcher.InvertedIndex = invertedIndex;
+                invertedIndex.IndexAllFiles("EnglishData");
+                context.Database.EnsureCreated();
+                // context.SaveChanges();
+                var author = context.Document.First();
+                Console.WriteLine(author.DocumentName);
+            }
         }
     }
 

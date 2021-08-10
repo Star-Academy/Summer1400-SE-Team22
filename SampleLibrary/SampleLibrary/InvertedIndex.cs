@@ -32,7 +32,8 @@ namespace SampleLibrary
             var text = FileReader.ReadFileContent(fileAddress);
 
             var document = new Document(fileAddress);
-            Searcher.SearchContext.Documents.Add(document);
+            // Searcher.SearchContext.Documents.Add(document);
+            Searcher.SearchContext.Add(document);
 
             foreach (var word in text.Split(' '))
             {
@@ -45,7 +46,8 @@ namespace SampleLibrary
                 if (wordObj == null)
                 {
                     wordObj = new Word(word);
-                    Searcher.SearchContext.Words.Add(wordObj);
+                    Searcher.SearchContext.Add(wordObj);
+                    // Searcher.SearchContext.Words.Add(wordObj);
                     Words.Add(wordObj);
                 }
 

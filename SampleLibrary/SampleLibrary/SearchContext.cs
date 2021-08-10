@@ -5,8 +5,8 @@ namespace SampleLibrary
 {
     public class SearchContext  : DbContext
     {
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<Word> Words { get; set; }
+        public DbSet<Document> Document { get; set; }
+        public DbSet<Word> Word { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
