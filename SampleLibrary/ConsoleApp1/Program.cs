@@ -13,9 +13,8 @@ namespace ConsoleApp1
             var invertedIndex = new InvertedIndex();
             Searcher.InvertedIndex = invertedIndex;
             invertedIndex.IndexAllFiles("EnglishData");
-            // foreach(var s in invertedIndex.StopWords)
-            //     context.StopWords.Add(new StopWord(s));
-            // context.SaveChanges();
+
+            context.SaveChanges();
 
         }
     }

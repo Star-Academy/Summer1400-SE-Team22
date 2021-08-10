@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SampleLibrary
 {
@@ -10,6 +11,10 @@ namespace SampleLibrary
         public Word(string content)
         {
             Content = content;
+        }
+
+        public Word()
+        {
         }
     }
 }
