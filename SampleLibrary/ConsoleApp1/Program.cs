@@ -14,7 +14,7 @@ namespace ConsoleApp1
             Searcher.InvertedIndex = invertedIndex;
             invertedIndex.IndexAllFiles("EnglishData");
 
-            context.SaveChanges();
+            // context.SaveChanges();
 
         }
     }

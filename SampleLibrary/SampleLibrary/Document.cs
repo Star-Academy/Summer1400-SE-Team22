@@ -7,7 +7,7 @@ namespace SampleLibrary
     public class Document
     {
         [Key]
-        public string DocumentName;
+        public string DocumentName{ get; set; }
 
         public List<WordDocument> AllDocumentWords { get; set; } = new List<WordDocument>();
 

@@ -11,6 +11,7 @@ namespace SampleLibrary
             FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
 
         public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
+        public List<Word> Words { get; set; } = new List<Word>();
 
         public void IndexAllFiles(string folderAddress)
         {
@@ -40,11 +41,12 @@ namespace SampleLibrary
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;
 
-                var wordObj = Searcher.SearchContext.GetWord(word);
+                var wordObj = GetWord(word);
                 if (wordObj == null)
                 {
                     wordObj = new Word(word);
                     Searcher.SearchContext.Words.Add(wordObj);
+                    Words.Add(wordObj);
                 }
 
                 var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
@@ -58,6 +60,18 @@ namespace SampleLibrary
 
                 Index[wordCopy].Add(new WordInfo(fileAddress, position));
             }
+        }
+
+        public Word GetWord(string word)
+        {
+            foreach (var w in Words)
+            {
+                if (w.WordContent == word)
+                {
+                    return w;
+                }
+            }
+            return null;
         }
     }
 }
