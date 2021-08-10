@@ -47,8 +47,9 @@ namespace SampleLibrary
                     Searcher.SearchContext.Words.Add(wordObj);
                 }
 
-                document.AllDocumentWords.Add(wordObj);
-                wordObj.AllWordOwners.Add(document);
+                var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
+                document.AllDocumentWords.Add(wordDocument);
+                wordObj.AllWordOwners.Add(wordDocument);
 
                 if (!Index.ContainsKey(wordCopy))
                 {

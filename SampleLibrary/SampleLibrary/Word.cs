@@ -5,12 +5,13 @@ namespace SampleLibrary
 {
     public class Word
     {
-        public string Content;
-        public List<Document> AllWordOwners { get; set; } = new List<Document>();
+        [Key]
+        public string WordContent;
+        public List<WordDocument> AllWordOwners { get; set; } = new List<WordDocument>();
 
-        public Word(string content)
+        public Word(string wordContent)
         {
-            Content = content;
+            WordContent = wordContent;
         }
 
         public Word()

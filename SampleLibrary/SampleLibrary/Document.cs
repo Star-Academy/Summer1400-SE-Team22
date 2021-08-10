@@ -7,13 +7,13 @@ namespace SampleLibrary
     public class Document
     {
         [Key]
-        public string name;
+        public string DocumentName;
 
-        public List<Word> AllDocumentWords { get; set; } = new List<Word>();
+        public List<WordDocument> AllDocumentWords { get; set; } = new List<WordDocument>();
 
-        public Document(string name)
+        public Document(string documentName)
         {
-            this.name = name;
+            this.DocumentName = documentName;
         }
 
         public Document()
