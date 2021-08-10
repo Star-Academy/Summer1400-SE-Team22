@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace SampleLibrary
 {
@@ -10,6 +11,11 @@ namespace SampleLibrary
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=master;Integrated Security=True;User ID=;Password=745910;Pooling=False;Application Name=sqlops-connection-string");
+        }
+
+        public Word GetWord(string word)
+        {
+            return Enumerable.FirstOrDefault(Words, w => w.Content == word);
         }
 
     }

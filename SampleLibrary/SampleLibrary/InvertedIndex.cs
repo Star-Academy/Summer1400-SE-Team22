@@ -36,12 +36,19 @@ namespace SampleLibrary
             foreach (var word in text.Split(' '))
             {
                 var wordCopy = word.ToLower();
-                var wordObj = new Word(word);
-
-                document.AllDocumentWords.Add(wordObj);
 
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;
+
+                var wordObj = Searcher.SearchContext.GetWord(word);
+                if (wordObj == null)
+                {
+                    wordObj = new Word(word);
+                    Searcher.SearchContext.Words.Add(wordObj);
+                }
+
+                document.AllDocumentWords.Add(wordObj);
+                wordObj.AllWordOwners.Add(document);
 
                 if (!Index.ContainsKey(wordCopy))
                 {
@@ -51,7 +58,5 @@ namespace SampleLibrary
                 Index[wordCopy].Add(new WordInfo(fileAddress, position));
             }
         }
-
-
     }
 }

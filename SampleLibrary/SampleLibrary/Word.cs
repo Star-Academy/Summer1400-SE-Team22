@@ -5,7 +5,7 @@ namespace SampleLibrary
     public class Word
     {
         public string Content;
-        public List<string> AllWordOwners { get; set; } = new List<string>();
+        public List<Document> AllWordOwners { get; set; } = new List<Document>();
 
         public Word(string content)
         {
