@@ -4,9 +4,8 @@ namespace SampleLibrary
 {
     public class SearchContext  : DbContext
     {
-        // public DbSet<InvertedIndex> InvertedIndexes { get; set; }
-        // public DbSet<WordInfo> WordInfos { get; set; }
-        public DbSet<StopWord> StopWords { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Word> Words { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

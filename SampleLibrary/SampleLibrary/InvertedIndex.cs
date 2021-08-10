@@ -29,9 +29,16 @@ namespace SampleLibrary
         {
             var position = 0;
             var text = FileReader.ReadFileContent(fileAddress);
+
+            var document = new Document(fileAddress);
+            Searcher.SearchContext.Documents.Add(document);
+
             foreach (var word in text.Split(' '))
             {
                 var wordCopy = word.ToLower();
+                var wordObj = new Word(word);
+
+                document.AllDocumentWords.Add(wordObj);
 
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;

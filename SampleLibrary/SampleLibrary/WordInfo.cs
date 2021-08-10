@@ -5,10 +5,6 @@
         private readonly string _fileName;
         private readonly int _position;
 
-        public WordInfo()
-        {
-        }
-
         public WordInfo(string fileName, int position)
         {
             _fileName = fileName;
