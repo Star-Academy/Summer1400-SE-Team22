@@ -7,7 +7,7 @@ namespace SampleLibrary
     public class Searcher
     {
         public static InvertedIndex InvertedIndex { get; set; }
-        public static SearchContext SearchContext { get; set; }
+        // public static SearchContext SearchContext { get; set; }
 
         public static void Run(string folderAddress)
         {

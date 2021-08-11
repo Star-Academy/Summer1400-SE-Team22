@@ -10,6 +10,8 @@ namespace SampleLibrary
         public List<string> StopWords { get; } =
             FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
 
+        private int counter = 0;
+
         public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
         public List<Word> Words { get; set; } = new List<Word>();
 
@@ -41,14 +43,7 @@ namespace SampleLibrary
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;
 
-                // var wordObj = GetWord(word);
-                // if (wordObj == null)
-                // {
-                    // wordObj = new Word(word);
-                    // wordObj.AllWordOwners.Add(document);
-                    // Searcher.SearchContext.Words.Add(wordObj);
-                    // Words.Add(wordObj);
-                // }
+
 
                 // var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
                 // document.AllDocumentWords.Add(wordDocument);
@@ -58,20 +53,27 @@ namespace SampleLibrary
                     Index.Add(wordCopy, new List<WordInfo>());
                 }
 
-                Index[wordCopy].Add(new WordInfo(fileAddress, position));
+                var wordInfo = new WordInfo(fileAddress, position);
+                Index[wordCopy].Add(wordInfo);
+
+
+                var wordObj = GetWord(word);
+                if (wordObj == null)
+                {
+                    wordObj = new Word(word);
+                    // Searcher.SearchContext.Words.Add(wordObj);
+                    Words.Add(wordObj);
+                }
+                wordInfo.Word = wordObj;
+                wordInfo.WordContent = wordInfo.Word.WordContent;
+                wordInfo.Id = counter++;
+                wordObj.AllWordOwners.Add(wordInfo);
             }
         }
 
-        // public Word GetWord(string word)
-        // {
-            // foreach (var w in Words)
-            // {
-                // if (w.WordContent == word)
-                // {
-                    // return w;
-                // }
-            // }
-            // return null;
-        // }
+        private Word GetWord(string word)
+        {
+            return Words.FirstOrDefault(w => w.WordContent == word);
+        }
     }
 }
