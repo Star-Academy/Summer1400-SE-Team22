@@ -31,9 +31,8 @@ namespace SampleLibrary
             var position = 0;
             var text = FileReader.ReadFileContent(fileAddress);
 
-            var document = new Document(fileAddress);
+            // var document = new Document(fileAddress);
             // Searcher.SearchContext.Documents.Add(document);
-            Searcher.SearchContext.Add(document);
 
             foreach (var word in text.Split(' '))
             {
@@ -42,18 +41,17 @@ namespace SampleLibrary
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;
 
-                var wordObj = GetWord(word);
-                if (wordObj == null)
-                {
-                    wordObj = new Word(word);
-                    Searcher.SearchContext.Add(wordObj);
+                // var wordObj = GetWord(word);
+                // if (wordObj == null)
+                // {
+                    // wordObj = new Word(word);
+                    // wordObj.AllWordOwners.Add(document);
                     // Searcher.SearchContext.Words.Add(wordObj);
-                    Words.Add(wordObj);
-                }
+                    // Words.Add(wordObj);
+                // }
 
-                var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
-                document.AllDocumentWords.Add(wordDocument);
-                wordObj.AllWordOwners.Add(wordDocument);
+                // var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
+                // document.AllDocumentWords.Add(wordDocument);
 
                 if (!Index.ContainsKey(wordCopy))
                 {
@@ -64,16 +62,16 @@ namespace SampleLibrary
             }
         }
 
-        public Word GetWord(string word)
-        {
-            foreach (var w in Words)
-            {
-                if (w.WordContent == word)
-                {
-                    return w;
-                }
-            }
-            return null;
-        }
+        // public Word GetWord(string word)
+        // {
+            // foreach (var w in Words)
+            // {
+                // if (w.WordContent == word)
+                // {
+                    // return w;
+                // }
+            // }
+            // return null;
+        // }
     }
 }

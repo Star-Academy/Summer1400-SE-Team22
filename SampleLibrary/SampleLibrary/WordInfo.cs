@@ -2,23 +2,23 @@
 {
     public class WordInfo
     {
-        private readonly string _fileName;
-        private readonly int _position;
+        public string FileName { get; set; }
+        public int Position { get; set; }
 
         public WordInfo(string fileName, int position)
         {
-            _fileName = fileName;
-            _position = position;
+            FileName = fileName;
+            Position = position;
         }
 
         public string GetFileName()
         {
-            return _fileName;
+            return FileName;
         }
 
         public int GetPosition()
         {
-            return _position;
+            return Position;
         }
     }
 }

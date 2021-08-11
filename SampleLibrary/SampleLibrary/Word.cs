@@ -7,7 +7,7 @@ namespace SampleLibrary
     {
         [Key]
         public string WordContent { get; set; }
-        public List<WordDocument> AllWordOwners { get; set; } = new List<WordDocument>();
+        public List<WordInfo> AllWordOwners { get; set; } = new List<WordInfo>();
 
         public Word(string wordContent)
         {

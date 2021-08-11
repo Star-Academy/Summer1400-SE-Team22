@@ -9,7 +9,7 @@ namespace SampleLibrary
         [Key]
         public string DocumentName{ get; set; }
 
-        public List<WordDocument> AllDocumentWords { get; set; } = new List<WordDocument>();
+        // public List<WordDocument> AllDocumentWords { get; set; } = new List<WordDocument>();
 
         public Document(string documentName)
         {

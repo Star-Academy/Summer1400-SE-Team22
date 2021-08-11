@@ -16,10 +16,14 @@ namespace ConsoleApp1
                 var invertedIndex = new InvertedIndex();
                 Searcher.InvertedIndex = invertedIndex;
                 invertedIndex.IndexAllFiles("EnglishData");
+                // context.Add()
+
+                context.Add(invertedIndex.Index.Values);
+                context.SaveChanges();
                 context.Database.EnsureCreated();
                 // context.SaveChanges();
-                var author = context.Document.First();
-                Console.WriteLine(author.DocumentName);
+                // var author = context.Documents.First();
+                // Console.WriteLine(author.DocumentName);
             }
         }
     }
