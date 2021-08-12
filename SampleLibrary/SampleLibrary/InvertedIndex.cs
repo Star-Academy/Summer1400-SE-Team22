@@ -13,7 +13,8 @@ namespace SampleLibrary
         public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
         public List<Word> Words { get; set; } = new List<Word>();
 
-        int counter = 0;
+        int wordInfoCounter = 0;
+        int wordCounter = 0;
 
         public void IndexAllFiles(string folderAddress)
         {
@@ -43,8 +44,6 @@ namespace SampleLibrary
                 position++;
                 if (StopWords.Contains(wordCopy) || wordCopy.Length > 80) continue;
 
-
-
                 // var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
                 // document.AllDocumentWords.Add(wordDocument);
 
@@ -54,7 +53,7 @@ namespace SampleLibrary
                 }
 
                 var wordInfo = new WordInfo(fileAddress, position);
-                wordInfo.Id = counter++;
+                // wordInfo.WordInfoId = wordInfoCounter++;
                 Index[wordCopy].Add(wordInfo);
 
 
@@ -66,8 +65,11 @@ namespace SampleLibrary
                     Words.Add(wordObj);
                 }
                 wordInfo.Word = wordObj;
-                wordInfo.WordContent = wordInfo.Word.WordContent;
+                // wordInfo.WordId = wordCounter++;
+                // wordObj.WordId = wordCounter;
                 wordObj.AllWordOwners.Add(wordInfo);
+                Searcher.SearchContext.Add(wordObj);
+                // Searcher.SearchContext.WordInfos.Add(wordInfo);
             }
         }
 

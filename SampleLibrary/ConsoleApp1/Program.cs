@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SampleLibrary;
@@ -10,11 +11,10 @@ namespace ConsoleApp1
 {
     class Program
     {
-        private static void Main()
+        private  static async Task Main()
         {
             using (var context = new SearchContext())
             {
-
                 context.Database.EnsureCreated();
 
                 Searcher.SearchContext = context;
@@ -22,19 +22,36 @@ namespace ConsoleApp1
                 Searcher.InvertedIndex = invertedIndex;
                 invertedIndex.IndexAllFiles("EnglishData");
 
-                foreach (var x in invertedIndex.Words)
-                {
-                    Console.WriteLine(x.WordContent);
-                    context.Add(x);
-                }
+                // foreach (var x in invertedIndex.Words)
+                // {
+                    // Console.WriteLine(x.WordContent);
+                    // context.Words.Add(x);
+                // }
+
+
+                // var word = new Word()
+                // {
+                //     // WordId = 1,
+                //     WordContent =  "hello"
+                // };
+                // var wordInfo = new WordInfo()
+                // {
+                //     // WordInfoId = 4,
+                //     FileName = "pei",
+                //     Position = 5,
+                //     // WordId = 1,
+                //     Word = word
+                // };
+                // word.AllWordOwners.Add(wordInfo);
+                // context.Add(word);
+
                 Console.WriteLine("-------------------------");
 
                 context.SaveChanges();
+                // await context.SaveChangesAsync();
 
-                // var author = context.Documents.First();
-                // Console.WriteLine(author.DocumentName);
-                var author = context.Words.Single(a => a.WordContent == "hello");
-                Console.WriteLine(author.WordContent);
+                // var author = context.Words.Single(a => a.WordContent == "hello");
+                // Console.WriteLine(author.WordContent);
             }
         }
 

@@ -2,7 +2,7 @@
 
 namespace SampleLibrary.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,38 +10,40 @@ namespace SampleLibrary.Migrations
                 name: "Words",
                 columns: table => new
                 {
-                    WordContent = table.Column<string>(type: "varchar(900)", unicode: false, nullable: false)
+                    WordId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WordContent = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Words", x => x.WordContent);
+                    table.PrimaryKey("PK_Words", x => x.WordId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "WordInfos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    WordInfoId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WordContent = table.Column<string>(type: "varchar(900)", nullable: true),
-                    FileName = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
-                    Position = table.Column<int>(type: "int", nullable: false)
+                    FileName = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: false),
+                    Position = table.Column<int>(type: "int", nullable: false),
+                    WordId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WordInfos", x => x.Id);
+                    table.PrimaryKey("PK_WordInfos", x => x.WordInfoId);
                     table.ForeignKey(
                         name: "FK_WordInfo_Word",
-                        column: x => x.WordContent,
+                        column: x => x.WordId,
                         principalTable: "Words",
-                        principalColumn: "WordContent",
+                        principalColumn: "WordId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_WordInfos_WordContent",
+                name: "IX_WordInfos_WordId",
                 table: "WordInfos",
-                column: "WordContent");
+                column: "WordId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -35,6 +35,7 @@ namespace SampleLibrary
                 {
                     entity.Property(e => e.WordContent)
                         .IsRequired()
+                        .HasMaxLength(100)
                         .IsUnicode(false);
                 });
 
@@ -42,11 +43,12 @@ namespace SampleLibrary
                 {
                     entity.Property(e => e.FileName)
                         .IsRequired()
+                        .HasMaxLength(100)
                         .IsUnicode(false);
 
                     entity.HasOne(d => d.Word)
                         .WithMany(p => p.AllWordOwners)
-                        .HasForeignKey(d => d.WordContent)
+                        .HasForeignKey(d => d.WordId)
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("FK_WordInfo_Word");
                 });

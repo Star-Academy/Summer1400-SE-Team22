@@ -20,36 +20,44 @@ namespace SampleLibrary.Migrations
 
             modelBuilder.Entity("SampleLibrary.Word", b =>
                 {
-                    b.Property<string>("WordContent")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(900)");
+                    b.Property<int>("WordId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("WordContent");
+                    b.Property<string>("WordContent")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("WordId");
 
                     b.ToTable("Words");
                 });
 
             modelBuilder.Entity("SampleLibrary.WordInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WordInfoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FileName")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<string>("WordContent")
-                        .HasColumnType("varchar(900)");
+                    b.Property<int>("WordId")
+                        .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("WordInfoId");
 
-                    b.HasIndex("WordContent");
+                    b.HasIndex("WordId");
 
                     b.ToTable("WordInfos");
                 });
@@ -58,8 +66,9 @@ namespace SampleLibrary.Migrations
                 {
                     b.HasOne("SampleLibrary.Word", "Word")
                         .WithMany("AllWordOwners")
-                        .HasForeignKey("WordContent")
-                        .HasConstraintName("FK_WordInfo_Word");
+                        .HasForeignKey("WordId")
+                        .HasConstraintName("FK_WordInfo_Word")
+                        .IsRequired();
 
                     b.Navigation("Word");
                 });

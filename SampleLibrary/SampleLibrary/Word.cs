@@ -5,9 +5,10 @@ namespace SampleLibrary
 {
     public class Word
     {
-        [Key]
+        public int WordId { get; set; }
+        [StringLength(255)]
         public string WordContent { get; set; }
-        public List<WordInfo> AllWordOwners { get; set; } = new List<WordInfo>();
+        public ICollection<WordInfo> AllWordOwners { get; set; } = new List<WordInfo>();
 
         public Word(string wordContent)
         {

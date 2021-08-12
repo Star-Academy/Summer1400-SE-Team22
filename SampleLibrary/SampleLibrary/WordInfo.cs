@@ -4,10 +4,10 @@ namespace SampleLibrary
 {
     public class WordInfo
     {
-        [Key] public int Id { get; set; }
-        public string WordContent { get; set; }
+        public int WordInfoId { get; set; }
         public string FileName { get; set; }
         public int Position { get; set; }
+        public int WordId { get; set; }
         public Word Word { get; set; }
 
 
