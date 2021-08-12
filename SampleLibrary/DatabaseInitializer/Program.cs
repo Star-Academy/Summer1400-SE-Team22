@@ -31,7 +31,6 @@ namespace DatabaseInitializer
             {
                 Console.WriteLine(s.FileName);
             }
-
         }
 
     }

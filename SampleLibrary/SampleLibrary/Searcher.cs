@@ -150,7 +150,6 @@ namespace SampleLibrary
         {
             word = word.ToLower();
             var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
-            // return InvertedIndex.Index[word];
             return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
         }
 

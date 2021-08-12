@@ -8,16 +8,14 @@ namespace SampleLibrary.Test
 {
     public class SearcherTest : BeforeAfterTestAttribute
     {
-        private static InvertedIndex _invertedIndex = new();
-        private static Searcher _searcher = new();
         private TextReader _savedIn;
         private TextWriter _savedOut;
 
 
         public SearcherTest()
         {
-            SetUpInvertedIndex("TestResources/EnglishData");
-
+            using var context = new SearchContext();
+            Searcher.SearchContext = context;
             SaveConsoleDefaults();
         }
 
@@ -119,8 +117,6 @@ namespace SampleLibrary.Test
         [Fact]
         private void MainTest()
         {
-            SetUpInvertedIndex("EnglishData");
-
             var output = new StringWriter();
             Console.SetOut(output);
 
@@ -131,14 +127,6 @@ namespace SampleLibrary.Test
                 Searcher.Run("EnglishData")));
 
             Assert.Contains("File name: ", output.ToString());
-        }
-
-        private static void SetUpInvertedIndex(string folder)
-        {
-            _invertedIndex = new InvertedIndex();
-            _searcher = new Searcher();
-            _invertedIndex.IndexAllFiles(folder);
-            Searcher.InvertedIndex = _invertedIndex;
         }
 
         private void SaveConsoleDefaults()
@@ -156,8 +144,6 @@ namespace SampleLibrary.Test
         [Fact]
         private void MainTest2()
         {
-            SetUpInvertedIndex("EnglishData");
-
             var output = new StringWriter();
             Console.SetOut(output);
 

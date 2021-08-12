@@ -3,5 +3,7 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::net5.0::SampleLibrary.Test.FileReaderTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::net5.0::SampleLibrary.Test.InvertedIndexTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::net5.0::SampleLibrary.Test.SearcherTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::7B583533-959B-43C4-90E2-DA8E6831A634::net5.0::SampleLibrary.Test.WordInfoTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

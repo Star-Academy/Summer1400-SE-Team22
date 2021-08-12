@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.IO;
+using Xunit;
 
 namespace SampleLibrary.Test
 {
@@ -10,10 +11,10 @@ namespace SampleLibrary.Test
             var invertedIndex = new InvertedIndex();
 
             var exception = Record.Exception(() =>
-                invertedIndex.IndexAllFiles("EnglishData"));
+                invertedIndex.IndexFile(Directory.GetFiles("EnglishData")[0]));
 
             Assert.Null(exception);
-            Assert.NotNull(invertedIndex.Index);
+            Assert.NotNull(invertedIndex.Words);
         }
 
         [Fact]
