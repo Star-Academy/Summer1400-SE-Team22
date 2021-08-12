@@ -10,8 +10,6 @@ namespace SampleLibrary
         public List<string> StopWords { get; } =
             FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
 
-        private int counter = 0;
-
         public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
         public List<Word> Words { get; set; } = new List<Word>();
 
@@ -61,12 +59,11 @@ namespace SampleLibrary
                 if (wordObj == null)
                 {
                     wordObj = new Word(word);
-                    // Searcher.SearchContext.Words.Add(wordObj);
+                    Searcher.SearchContext.Words.Add(wordObj);
                     Words.Add(wordObj);
                 }
                 wordInfo.Word = wordObj;
                 wordInfo.WordContent = wordInfo.Word.WordContent;
-                wordInfo.Id = counter++;
                 wordObj.AllWordOwners.Add(wordInfo);
             }
         }
