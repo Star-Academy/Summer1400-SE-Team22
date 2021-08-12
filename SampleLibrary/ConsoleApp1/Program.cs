@@ -14,6 +14,7 @@ namespace ConsoleApp1
         {
             using (var context = new SearchContext())
             {
+
                 context.Database.EnsureCreated();
 
                 Searcher.SearchContext = context;
@@ -22,15 +23,18 @@ namespace ConsoleApp1
                 invertedIndex.IndexAllFiles("EnglishData");
 
                 foreach (var x in invertedIndex.Words)
+                {
+                    Console.WriteLine(x.WordContent);
                     context.Add(x);
+                }
+                Console.WriteLine("-------------------------");
 
                 context.SaveChanges();
-                context.Database.EnsureCreated();
 
                 // var author = context.Documents.First();
                 // Console.WriteLine(author.DocumentName);
-                // var author = context.Words.Single(a => a.WordContent == "hello");
-                // Console.Write(author.WordContent);
+                var author = context.Words.Single(a => a.WordContent == "hello");
+                Console.WriteLine(author.WordContent);
             }
         }
 

@@ -35,7 +35,6 @@ namespace SampleLibrary
                 {
                     entity.Property(e => e.WordContent)
                         .IsRequired()
-                        .HasMaxLength(50)
                         .IsUnicode(false);
                 });
 
@@ -43,7 +42,6 @@ namespace SampleLibrary
                 {
                     entity.Property(e => e.FileName)
                         .IsRequired()
-                        .HasMaxLength(50)
                         .IsUnicode(false);
 
                     entity.HasOne(d => d.Word)

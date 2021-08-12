@@ -10,7 +10,7 @@ namespace SampleLibrary.Migrations
                 name: "Words",
                 columns: table => new
                 {
-                    WordContent = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                    WordContent = table.Column<string>(type: "varchar(900)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,8 +23,8 @@ namespace SampleLibrary.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WordContent = table.Column<string>(type: "varchar(50)", nullable: true),
-                    FileName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    WordContent = table.Column<string>(type: "varchar(900)", nullable: true),
+                    FileName = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

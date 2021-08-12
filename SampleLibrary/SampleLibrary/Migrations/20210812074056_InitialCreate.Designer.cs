@@ -9,7 +9,7 @@ using SampleLibrary;
 namespace SampleLibrary.Migrations
 {
     [DbContext(typeof(SearchContext))]
-    [Migration("20210811125704_InitialCreate")]
+    [Migration("20210812074056_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,9 +23,8 @@ namespace SampleLibrary.Migrations
             modelBuilder.Entity("SampleLibrary.Word", b =>
                 {
                     b.Property<string>("WordContent")
-                        .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(900)");
 
                     b.HasKey("WordContent");
 
@@ -41,15 +40,14 @@ namespace SampleLibrary.Migrations
 
                     b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
                     b.Property<string>("WordContent")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("varchar(900)");
 
                     b.HasKey("Id");
 
