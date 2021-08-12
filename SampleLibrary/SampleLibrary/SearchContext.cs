@@ -4,7 +4,6 @@ namespace SampleLibrary
 {
     public class SearchContext : DbContext
     {
-        // public DbSet<Document> Documents { get; set; }
         public DbSet<WordInfo> WordInfos { get; set; }
         public DbSet<Word> Words { get; set; }
 
@@ -16,21 +15,6 @@ namespace SampleLibrary
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // modelBuilder.Entity<WordInfo>().ToTable("WordInfos");
-            // modelBuilder.Entity<Word>().ToTable("Words");
-
-            // modelBuilder.Entity<WordDocument>()
-            // .HasKey(t => new { t.WordContent, t.DocumentName });
-
-            // modelBuilder.Entity<WordDocument>()
-            // .HasOne(bc => bc.Word)
-            // .WithMany(b => b.AllWordOwners)
-            // .HasForeignKey(bc => bc.WordContent);
-
-            // modelBuilder.Entity<WordDocument>()
-            // .HasOne(bc => bc.Document)
-            // .WithMany(c => c.AllDocumentWords)
-            // .HasForeignKey(bc => bc.DocumentName);
             modelBuilder.Entity<Word>(entity =>
             {
                 entity.Property(e => e.WordContent)
