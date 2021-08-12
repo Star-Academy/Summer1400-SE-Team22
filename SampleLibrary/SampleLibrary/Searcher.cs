@@ -149,7 +149,9 @@ namespace SampleLibrary
         private static List<WordInfo> SearchForAWord(string word)
         {
             word = word.ToLower();
-            return InvertedIndex.Index[word];
+            var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
+            // return InvertedIndex.Index[word];
+            return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
         }
 
         private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
