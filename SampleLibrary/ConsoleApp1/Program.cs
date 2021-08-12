@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using SampleLibrary;
 
 namespace ConsoleApp1
 {
-    class Program
+    internal class Program
     {
-        private  static async Task Main()
+        private static async Task Main()
         {
             using (var context = new SearchContext())
             {
@@ -24,8 +19,8 @@ namespace ConsoleApp1
 
                 // foreach (var x in invertedIndex.Words)
                 // {
-                    // Console.WriteLine(x.WordContent);
-                    // context.Words.Add(x);
+                // Console.WriteLine(x.WordContent);
+                // context.Words.Add(x);
                 // }
 
 
@@ -55,21 +50,6 @@ namespace ConsoleApp1
             }
         }
 
-
-        // private static void Main()
-        // {
-        //     var dept = new Department()
-        //     {
-        //         Name = "Designing"
-        //     };
-        //
-        //     using (var context = new CompanyContext())
-        //     {
-        //         // context.Add(dept);
-        //         context.Department.Add(dept);
-        //         context.SaveChanges();
-        //     }
-        // }
 
         // private static void Main1()
         // {

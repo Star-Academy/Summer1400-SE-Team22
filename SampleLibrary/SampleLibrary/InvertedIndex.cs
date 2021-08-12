@@ -7,24 +7,22 @@ namespace SampleLibrary
 {
     public class InvertedIndex
     {
+        private int wordCounter = 0;
+
+        private int wordInfoCounter = 0;
+
         public List<string> StopWords { get; } =
             FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
 
-        public Dictionary<string, List<WordInfo>> Index { get; } = new Dictionary<string, List<WordInfo>>();
-        public List<Word> Words { get; set; } = new List<Word>();
-
-        int wordInfoCounter = 0;
-        int wordCounter = 0;
+        public Dictionary<string, List<WordInfo>> Index { get; } = new();
+        public List<Word> Words { get; set; } = new();
 
         public void IndexAllFiles(string folderAddress)
         {
             var listOfFiles = Directory.GetFiles(folderAddress);
 
             Console.WriteLine("indexing...");
-            foreach (var fileAddress in listOfFiles)
-            {
-                IndexFile(fileAddress);
-            }
+            foreach (var fileAddress in listOfFiles) IndexFile(fileAddress);
 
             Console.WriteLine("indexing completed.");
         }
@@ -47,10 +45,7 @@ namespace SampleLibrary
                 // var wordDocument = new WordDocument(wordCopy, fileAddress, wordObj, document);
                 // document.AllDocumentWords.Add(wordDocument);
 
-                if (!Index.ContainsKey(wordCopy))
-                {
-                    Index.Add(wordCopy, new List<WordInfo>());
-                }
+                if (!Index.ContainsKey(wordCopy)) Index.Add(wordCopy, new List<WordInfo>());
 
                 var wordInfo = new WordInfo(fileAddress, position);
                 // wordInfo.WordInfoId = wordInfoCounter++;
@@ -64,6 +59,7 @@ namespace SampleLibrary
                     Searcher.SearchContext.Words.Add(wordObj);
                     Words.Add(wordObj);
                 }
+
                 wordInfo.Word = wordObj;
                 // wordInfo.WordId = wordCounter++;
                 // wordObj.WordId = wordCounter;

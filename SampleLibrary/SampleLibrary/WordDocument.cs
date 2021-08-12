@@ -2,11 +2,6 @@
 {
     public class WordDocument
     {
-        public string WordContent{ get; set; }
-        public string DocumentName{ get; set; }
-        public Word Word{ get; set; }
-        public Document Document{ get; set; }
-
         public WordDocument(string wordContent, string documentName, Word word, Document document)
         {
             WordContent = wordContent;
@@ -18,5 +13,10 @@
         public WordDocument()
         {
         }
+
+        public string WordContent { get; set; }
+        public string DocumentName { get; set; }
+        public Word Word { get; set; }
+        public Document Document { get; set; }
     }
 }

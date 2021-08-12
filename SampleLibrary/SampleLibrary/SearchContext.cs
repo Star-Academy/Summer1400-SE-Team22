@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SampleLibrary
 {
-    public class SearchContext  : DbContext
+    public class SearchContext : DbContext
     {
         // public DbSet<Document> Documents { get; set; }
         public DbSet<WordInfo> WordInfos { get; set; }
@@ -11,7 +10,8 @@ namespace SampleLibrary
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost;Initial Catalog=invertedIndex;Integrated Security=True;User ID=;Password=745910;Pooling=False;Application Name=sqlops-connection-string");
+            optionsBuilder.UseSqlServer(
+                @"Data Source=localhost;Initial Catalog=invertedIndex;Integrated Security=True;User ID=;Password=745910;Pooling=False;Application Name=sqlops-connection-string");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,41 +20,38 @@ namespace SampleLibrary
             // modelBuilder.Entity<Word>().ToTable("Words");
 
             // modelBuilder.Entity<WordDocument>()
-                // .HasKey(t => new { t.WordContent, t.DocumentName });
+            // .HasKey(t => new { t.WordContent, t.DocumentName });
 
             // modelBuilder.Entity<WordDocument>()
-                // .HasOne(bc => bc.Word)
-                // .WithMany(b => b.AllWordOwners)
-                // .HasForeignKey(bc => bc.WordContent);
+            // .HasOne(bc => bc.Word)
+            // .WithMany(b => b.AllWordOwners)
+            // .HasForeignKey(bc => bc.WordContent);
 
             // modelBuilder.Entity<WordDocument>()
-                // .HasOne(bc => bc.Document)
-                // .WithMany(c => c.AllDocumentWords)
-                // .HasForeignKey(bc => bc.DocumentName);
-                modelBuilder.Entity<Word>(entity =>
-                {
-                    entity.Property(e => e.WordContent)
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
-                });
+            // .HasOne(bc => bc.Document)
+            // .WithMany(c => c.AllDocumentWords)
+            // .HasForeignKey(bc => bc.DocumentName);
+            modelBuilder.Entity<Word>(entity =>
+            {
+                entity.Property(e => e.WordContent)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
 
-                modelBuilder.Entity<WordInfo>(entity =>
-                {
-                    entity.Property(e => e.FileName)
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(false);
+            modelBuilder.Entity<WordInfo>(entity =>
+            {
+                entity.Property(e => e.FileName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
-                    entity.HasOne(d => d.Word)
-                        .WithMany(p => p.AllWordOwners)
-                        .HasForeignKey(d => d.WordId)
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_WordInfo_Word");
-                });
+                entity.HasOne(d => d.Word)
+                    .WithMany(p => p.AllWordOwners)
+                    .HasForeignKey(d => d.WordId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WordInfo_Word");
+            });
         }
-
-
-
     }
 }

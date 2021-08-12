@@ -16,7 +16,7 @@ namespace SampleLibrary
             while (true)
             {
                 Console.WriteLine("enter a word for search:");
-                string input = Console.ReadLine();
+                var input = Console.ReadLine();
                 if (input == "exit") return;
                 PrintResults(Search(input));
                 Console.WriteLine("---------------------------------------------------");
@@ -36,10 +36,7 @@ namespace SampleLibrary
             var navigatingIndex = 0;
             try
             {
-                while (InvertedIndex.StopWords.Contains(words[navigatingIndex]))
-                {
-                    navigatingIndex++;
-                }
+                while (InvertedIndex.StopWords.Contains(words[navigatingIndex])) navigatingIndex++;
             }
             catch (Exception)
             {
@@ -106,18 +103,14 @@ namespace SampleLibrary
         {
             foreach (var candidate in
                 candidates.Where(candidate => !allCandidates.ContainsKey(candidate.GetFileName())))
-            {
                 allCandidates.Add(candidate.GetFileName(), candidate);
-            }
         }
 
         private static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
             foreach (var wordInfo in plusWords.SelectMany(plusWord =>
                 SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.GetFileName()))))
-            {
                 allCandidates.Add(wordInfo.GetFileName(), wordInfo);
-            }
         }
 
         public static void PrintResults(List<WordInfo> candidates)
@@ -163,13 +156,9 @@ namespace SampleLibrary
         {
             foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
-            {
                 for (var j = candidates.Count - 1; j >= 0; j--)
-                {
-                    if (candidates[j].GetFileName() == (toBeRemovedDoc.GetFileName()))
+                    if (candidates[j].GetFileName() == toBeRemovedDoc.GetFileName())
                         candidates.RemoveAt(j);
-                }
-            }
         }
     }
 }
