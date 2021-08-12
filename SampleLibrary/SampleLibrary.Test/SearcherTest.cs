@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Xunit;
 using Xunit.Sdk;
@@ -14,8 +15,7 @@ namespace SampleLibrary.Test
 
         public SearcherTest()
         {
-            using var context = new SearchContext();
-            Searcher.SearchContext = context;
+            Searcher.InvertedIndex = new InvertedIndex();
             SaveConsoleDefaults();
         }
 
@@ -27,39 +27,37 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordSearch()
         {
-            var result = Searcher.Search("ali");
-            Assert.Equal(7, result.Count);
+            var result = Searcher.Search("hello");
+            Assert.Equal(8, result.Count);
         }
 
         [Fact]
         private void NormalWordsSearch()
         {
-            var result = Searcher.Search("ali va hasan godratmand");
-            Assert.Single(result);
-            Assert.Contains("3", result[0].GetFileName());
+            var result = Searcher.Search("school");
+            Assert.True(result.Count > 10);
         }
 
         [Fact]
         private void NormalWordsWithStopWordsBetweenSearch()
         {
-            var result = Searcher.Search("ali va hasan is godratmand");
-            Assert.Single(result);
-            Assert.Contains("4", result[0].GetFileName());
+            var result = Searcher.Search("boy");
+            Assert.True(result.Count == 12);
         }
 
 
         [Fact]
         private void PlusWordsSearchOne()
         {
-            var result = Searcher.Search("+ali va hasan godratmand");
-            Assert.Equal(7, result.Count);
+            var result = Searcher.Search("short");
+            Assert.True(result.Count > 20);
         }
 
         [Fact]
         private void PlusWordsSearchTwo()
         {
-            var result = Searcher.Search("ali va +hasan godratmand");
-            Assert.Equal(5, result.Count);
+            var result = Searcher.Search("-jump");
+            Assert.Null(result);
         }
 
         [Fact]
@@ -99,8 +97,7 @@ namespace SampleLibrary.Test
 
             var result = Searcher.Search("inkalamehvojoodnadaradaziz");
             Searcher.PrintResults(result);
-            Assert.Null(result);
-            Assert.Contains("there is no match!", output.ToString());
+            Assert.True(result.Count == 0);
         }
 
         [Fact]
@@ -123,8 +120,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(() =>
-                Searcher.Run("EnglishData")));
+            Assert.Null(Record.Exception(Searcher.Run));
 
             Assert.Contains("File name: ", output.ToString());
         }
@@ -150,8 +146,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello -kid\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(() =>
-                Searcher.Run("EnglishData")));
+            Assert.Null(Record.Exception(Searcher.Run));
         }
     }
 }

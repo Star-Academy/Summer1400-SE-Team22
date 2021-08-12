@@ -39,6 +39,7 @@ namespace SampleLibrary
             {
                 Searcher.SearchContext = new SearchContext();
             }
+
             position++;
             if (StopWords.Contains(word) || word.Length > 80) return;
 

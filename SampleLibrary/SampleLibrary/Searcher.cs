@@ -7,12 +7,11 @@ namespace SampleLibrary
     public class Searcher
     {
         public static InvertedIndex InvertedIndex { get; set; }
-        public static SearchContext SearchContext { get; set; }
+        public static SearchContext SearchContext { get; set; } = new SearchContext();
 
-        public static void Run(string folderAddress)
+        public static void Run()
         {
             InvertedIndex = new InvertedIndex();
-            InvertedIndex.IndexAllFiles(folderAddress);
             while (true)
             {
                 Console.WriteLine("enter a word for search:");
