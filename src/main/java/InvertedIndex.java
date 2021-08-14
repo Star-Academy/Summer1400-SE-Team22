@@ -6,7 +6,7 @@ public class InvertedIndex {
     private static final List<String> stopWords;
 
     static {
-        stopWords = Arrays.asList(FileReader.readFileContent(new File("src/main/resources/stopWords.txt")).split(","));
+        stopWords = Arrays.asList(FileReader.readFileContent(new File(FilePaths.STOP_WORDS.filePath)).split(","));
     }
 
     private Map<String, List<WordInfo>> index = new HashMap<>();
