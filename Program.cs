@@ -5,9 +5,14 @@ using System.Text.Json;
 
 namespace Summer1400_SE_Team22
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main()
+        {
+            Run();
+        }
+
+        private static void Run()
         {
             var studentsJson = File.ReadAllText("Database/Students.json");
             var students = JsonSerializer.Deserialize<Student[]>(studentsJson);
