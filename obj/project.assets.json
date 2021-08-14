@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\temperory\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj",
+      "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\as\\Summer1400-SE-Team22.csproj",
       "projectName": "Summer1400-SE-Team22",
-      "projectPath": "E:\\temperory\\Summer1400-SE-Team22\\Summer1400-SE-Team22.csproj",
+      "projectPath": "E:\\project\\c# projects\\CodeStar\\as\\Summer1400-SE-Team22.csproj",
       "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-      "outputPath": "E:\\temperory\\Summer1400-SE-Team22\\obj\\",
+      "outputPath": "E:\\project\\c# projects\\CodeStar\\as\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -30,6 +30,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -41,6 +42,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "imports": [
           "net461",
           "net462",
@@ -56,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.411\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
