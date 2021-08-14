@@ -32,7 +32,6 @@ public class Searcher {
     }
 
     public List<WordInfo> search() {
-        HashMap<String, WordInfo> allCandidates = new HashMap<>();
         List<WordInfo> candidates;
 
         int navigatingIndex = 0;
@@ -54,11 +53,16 @@ public class Searcher {
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
             ignoredCounter = 0;
         }
+        candidatesProcessor(candidates);
+        return candidates;
+    }
+
+    private void candidatesProcessor(List<WordInfo> candidates){
+        HashMap<String, WordInfo> allCandidates = new HashMap<>();
         handlePlusWords(allCandidates);
         sumResultsWithPlusWords(allCandidates, candidates);
         candidates = new LinkedList<>(allCandidates.values());
         deleteMinusWordsFromCandidates(candidates);
-        return candidates;
     }
 
     private void reduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo) {
