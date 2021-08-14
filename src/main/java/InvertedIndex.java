@@ -30,8 +30,9 @@ public class InvertedIndex {
         for (String word : text.split("\\W+")) {
             word = word.toLowerCase();
             position++;
-            if (stopWords.contains(word))
+            if (stopWords.contains(word)) {
                 continue;
+            }
             List<WordInfo> idx = index.computeIfAbsent(word, k -> new LinkedList<>());
             idx.add(new WordInfo(fileName, position));
         }

@@ -15,7 +15,9 @@ public class Searcher {
         while (true) {
             System.out.println("enter a word for search:");
             String input = scanner.nextLine();
-            if (input.equals("exit")) return;
+            if (input.equals("exit")) {
+                return;
+            }
             printResults(search(input));
             System.out.println("---------------------------------------------------");
         }
@@ -41,7 +43,7 @@ public class Searcher {
                     + ConsoleColors.ANSI_RESET);
             return null;
         }
-        List<WordInfo> candidates = null;
+        List<WordInfo> candidates;
         try {
             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
         } catch (Exception e) {
@@ -78,8 +80,9 @@ public class Searcher {
                     break;
                 }
             }
-            if (!isExist)
+            if (!isExist) {
                 candidates.remove(j);
+            }
         }
     }
 
@@ -102,10 +105,11 @@ public class Searcher {
             System.out.println("there is no match!");
             return;
         }
-        for (WordInfo candidate : candidates)
+        for (WordInfo candidate : candidates) {
             System.out.println("File name: " + ConsoleColors.ANSI_CYAN + candidate.getFileName() + ConsoleColors.ANSI_RESET
                     + " ApproximatePosition: " + ConsoleColors.ANSI_GREEN + (candidate.getPosition() - candidates.size() + 1)
                     + ConsoleColors.ANSI_RESET);
+        }
     }
 
     private void isolatePlusAndMinusWords(List<String> words, List<String> plusWords, List<String> minusWords) {
@@ -131,8 +135,9 @@ public class Searcher {
             List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
             for (WordInfo toBeRemovedDoc : toBeRemovedDocs) {
                 for (int j = candidates.size() - 1; j >= 0; j--) {
-                    if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName()))
+                    if (candidates.get(j).getFileName().equals(toBeRemovedDoc.getFileName())) {
                         candidates.remove(j);
+                    }
                 }
             }
         }
