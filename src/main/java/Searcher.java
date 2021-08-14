@@ -72,17 +72,17 @@ public class Searcher {
     private void reduceResultsToMatchSearch(List<WordInfo> candidates, int ignoredCounter, List<WordInfo> demo) {
         for (int j = candidates.size() - 1; j >= 0; j--) {
             WordInfo candidate = candidates.get(j);
-            boolean isExist = false;
+            boolean exists = false;
 
             for (WordInfo wordInfo : demo) {
                 if (wordInfo.getFileName().equals(candidate.getFileName())
                         && candidate.getPosition() + ignoredCounter + 1 == wordInfo.getPosition()) {
                     candidates.set(j, wordInfo);
-                    isExist = true;
+                    exists = true;
                     break;
                 }
             }
-            if (!isExist) {
+            if (!exists) {
                 candidates.remove(j);
             }
         }
