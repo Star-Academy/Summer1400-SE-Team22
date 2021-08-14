@@ -14,7 +14,7 @@ public class FileReader {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            return null;
+            return "";
         }
         return output.toString();
     }

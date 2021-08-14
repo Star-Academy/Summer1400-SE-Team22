@@ -18,12 +18,16 @@ public class Searcher {
             if (input.equals("exit")) {
                 return;
             }
-            printResults(search(input));
+            try {
+                printResults(search(input));
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
             System.out.println("---------------------------------------------------");
         }
     }
 
-    public List<WordInfo> search(String searchingExpression) {
+    public List<WordInfo> search(String searchingExpression) throws WordNotFoundException {
 
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         searchingExpression = searchingExpression.toLowerCase();
@@ -39,15 +43,13 @@ public class Searcher {
                 navigatingIndex++;
             }
         } catch (Exception e) {
-            System.out.println(ConsoleColors.ANSI_RED + "please try a different keyword for your search!"
-                    + ConsoleColors.ANSI_RESET);
-            return null;
+            throw new WordNotFoundException();
         }
         List<WordInfo> candidates;
         try {
             candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
         } catch (Exception e) {
-            return null;
+            throw new WordNotFoundException();
         }
         int ignoredCounter = 0;
         for (navigatingIndex += 1; navigatingIndex < words.size(); navigatingIndex++) {
