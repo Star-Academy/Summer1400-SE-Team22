@@ -5,10 +5,8 @@ import java.util.Scanner;
 
 public class Searcher {
 
-    private static InvertedIndex invertedIndex;
-    private List<String> words;
-    private List<String> plusWords;
-    private List<String> minusWords;
+    private InvertedIndex invertedIndex;
+    private SearchingExpression searchingExpression;
 
     public void run(String folderAddress) {
         invertedIndex = new InvertedIndex();
@@ -18,17 +16,10 @@ public class Searcher {
             System.out.println("enter a word for search or EXIT to exit:");
             String input = scanner.nextLine();
             if (input.equals("EXIT")) return;
-            SearchingExpression searchingExpression = new SearchingExpression(input);
-            init(searchingExpression);
+            searchingExpression = new SearchingExpression(input);
             printResults(search());
             System.out.println("---------------------------------------------------");
         }
-    }
-
-    private void init(SearchingExpression searchingExpression) {
-        words = searchingExpression.getWords();
-        plusWords = searchingExpression.getPlusWords();
-        minusWords = searchingExpression.getMinusWords();
     }
 
     public List<WordInfo> search() {
@@ -36,20 +27,20 @@ public class Searcher {
 
         int navigatingIndex = 0;
         try {
-            while (InvertedIndex.getStopWords().contains(words.get(navigatingIndex)))
+            while (InvertedIndex.getStopWords().contains(searchingExpression.getWords().get(navigatingIndex)))
                 navigatingIndex++;
-            candidates = new LinkedList<>(searchForAWord(words.get(navigatingIndex)));
+            candidates = new LinkedList<>(searchForAWord(searchingExpression.getWords().get(navigatingIndex)));
         } catch (Exception e) {
             return null;
         }
         int ignoredCounter = 0;
-        for (navigatingIndex += 1; navigatingIndex < words.size(); navigatingIndex++) {
-            String word = words.get(navigatingIndex);
+        for (navigatingIndex += 1; navigatingIndex < searchingExpression.getWords().size(); navigatingIndex++) {
+            String word = searchingExpression.getWords().get(navigatingIndex);
             if (InvertedIndex.getStopWords().contains(word)) {
                 ignoredCounter++;
                 continue;
             }
-            List<WordInfo> demo = searchForAWord(words.get(navigatingIndex));
+            List<WordInfo> demo = searchForAWord(searchingExpression.getWords().get(navigatingIndex));
             reduceResultsToMatchSearch(candidates, ignoredCounter, demo);
             ignoredCounter = 0;
         }
@@ -57,7 +48,7 @@ public class Searcher {
         return candidates;
     }
 
-    private void candidatesProcessor(List<WordInfo> candidates){
+    private void candidatesProcessor(List<WordInfo> candidates) {
         HashMap<String, WordInfo> allCandidates = new HashMap<>();
         handlePlusWords(allCandidates);
         sumResultsWithPlusWords(allCandidates, candidates);
@@ -90,7 +81,7 @@ public class Searcher {
     }
 
     private void handlePlusWords(HashMap<String, WordInfo> allCandidates) {
-        for (String plusWord : plusWords) {
+        for (String plusWord : searchingExpression.getPlusWords()) {
             for (WordInfo wordInfo : searchForAWord(plusWord)) {
                 allCandidates.put(wordInfo.getFileName(), wordInfo);
             }
@@ -116,7 +107,7 @@ public class Searcher {
     }
 
     private void deleteMinusWordsFromCandidates(List<WordInfo> candidates) {
-        for (String minusWord : minusWords) {
+        for (String minusWord : searchingExpression.getMinusWords()) {
             List<WordInfo> toBeRemovedDocs = searchForAWord(minusWord);
             for (WordInfo toBeRemovedDoc : toBeRemovedDocs)
                 for (int j = candidates.size() - 1; j >= 0; j--)
