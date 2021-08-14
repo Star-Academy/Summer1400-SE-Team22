@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -14,7 +15,7 @@ class SearcherTest {
     private static Searcher searcher = new Searcher();
 
     @BeforeEach
-    void init(){
+    void init() {
         invertedIndex = new InvertedIndex();
         searcher = new Searcher();
         invertedIndex.indexAllFiles("src/test/java/TestResources/EnglishData");
@@ -22,10 +23,14 @@ class SearcherTest {
     }
 
     @Test
-    void normalWordSearch(){
-        List<WordInfo> result = searcher.search("ali");
-       Assertions.assertEquals(7, result.size());
-       int i = 1;
+    void normalWordSearch() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("ali");
+        } catch (Exception ignored) {
+        }
+        Assertions.assertEquals(7, result.size());
+        int i = 1;
         for (WordInfo wordInfo : result) {
             Assertions.assertEquals(i + "", wordInfo.getFileName());
             i++;
@@ -33,61 +38,89 @@ class SearcherTest {
     }
 
     @Test
-    void normalWordsSearch(){
-        List<WordInfo> result = searcher.search("ali va hasan godratmand");
+    void normalWordsSearch() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("ali va hasan godratmand");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals("3", result.get(0).getFileName());
     }
 
     @Test
-    void normalWordsWithStopWordsBetweenSearch(){
-        List<WordInfo> result = searcher.search("ali va hasan is godratmand");
+    void normalWordsWithStopWordsBetweenSearch() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("ali va hasan is godratmand");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals("4", result.get(0).getFileName());
     }
 
     @Test
-    void consoleColorInstantiation(){
+    void consoleColorInstantiation() {
         new ConsoleColors();
     }
 
 
     @Test
-    void plusWordsSearchOne(){
-        List<WordInfo> result = searcher.search("+ali va hasan godratmand");
+    void plusWordsSearchOne() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("+ali va hasan godratmand");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(7, result.size());
     }
 
     @Test
-    void plusWordsSearchTwo(){
-        List<WordInfo> result = searcher.search("ali va +hasan godratmand");
+    void plusWordsSearchTwo() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("ali va +hasan godratmand");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(5, result.size());
     }
 
     @Test
-    void minusWordSearch(){
-        List<WordInfo> result = searcher.search("ali -hasan");
+    void minusWordSearch() {
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("ali -hasan");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(2, result.size());
     }
 
     @Test
-    void stopWordSearch(){
+    void stopWordSearch() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         outContent.reset();
-        List<WordInfo> result = searcher.search("is");
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("is");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(null, result);
-        assert(outContent.toString().contains("please try a different keyword for your search!"));
+        assert (outContent.toString().contains("please try a different keyword for your search!"));
     }
 
     @Test
-    void stopWordsSearch(){
+    void stopWordsSearch() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         outContent.reset();
-        List<WordInfo> result = searcher.search("were is");
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("were is");
+        } catch (Exception ignored) {
+        }
         Assertions.assertEquals(null, result);
-        assert(outContent.toString().contains("please try a different keyword for your search!"));
+        assert (outContent.toString().contains("please try a different keyword for your search!"));
     }
 
     @Test
@@ -95,12 +128,16 @@ class SearcherTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         outContent.reset();
-        List<WordInfo> result = searcher.search("inkalamehvojoodnadaradaziz");
+        List<WordInfo> result = null;
+        try {
+            result = searcher.search("inkalamehvojoodnadaradaziz");
+        } catch (Exception ignored) {
+        }
         Method printResultMethod = Class.forName("Searcher").getDeclaredMethod("printResults", List.class);
         printResultMethod.setAccessible(true);
         printResultMethod.invoke(searcher, result);
         Assertions.assertEquals(null, result);
-        assert(outContent.toString().contains("there is no match!"));
+        assert (outContent.toString().contains("there is no match!"));
     }
 
     @Test
@@ -109,6 +146,6 @@ class SearcherTest {
         System.setOut(new PrintStream(outContent));
         outContent.reset();
         Assertions.assertDoesNotThrow(() -> searcher.search("-kid"));
-        assert(outContent.toString().contains("please try a different keyword for your search!"));
+        assert (outContent.toString().contains("please try a different keyword for your search!"));
     }
 }
