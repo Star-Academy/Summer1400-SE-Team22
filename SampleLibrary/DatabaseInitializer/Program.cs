@@ -7,6 +7,11 @@ namespace DatabaseInitializer
     {
         private static void Main()
         {
+            InitializeDatabase();
+        }
+
+        private static void InitializeDatabase()
+        {
             using var context = new SearchContext();
             context.Database.EnsureCreated();
 

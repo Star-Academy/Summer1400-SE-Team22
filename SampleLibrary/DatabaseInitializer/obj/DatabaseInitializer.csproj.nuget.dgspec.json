@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj": {}
+    "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj": {}
   },
   "projects": {
-    "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj": {
+    "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj",
+        "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj",
         "projectName": "DatabaseInitializer",
-        "projectPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj",
+        "projectPath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\DatabaseInitializer\\DatabaseInitializer.csproj",
         "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-        "outputPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\DatabaseInitializer\\obj\\",
+        "outputPath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\DatabaseInitializer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
-                "projectPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
+              "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+                "projectPath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj"
               }
             }
           }
@@ -60,14 +60,14 @@
         }
       }
     },
-    "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
+    "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectUniqueName": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "projectName": "SampleLibrary",
-        "projectPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+        "projectPath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
         "packagesPath": "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\",
-        "outputPath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\obj\\",
+        "outputPath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Abolfazl Ghalandary\\AppData\\Roaming\\NuGet\\NuGet.Config"

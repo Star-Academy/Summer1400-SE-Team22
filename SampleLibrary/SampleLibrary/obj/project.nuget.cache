@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gilzO97Sya9HGOMDXteSV+kBvK8Dfw5UBvYMFMPDcTPKlnGh1koPoU1u8tdKVvTcqI/O9y5qB5EwdoXWqZAASw==",
+  "dgSpecHash": "aCNZp9AxRYyDsaeMKLcq6Yh6XyvgvGWCrReC5CptwgnMHxcJtl6z+/qnHjmag2ekgAHfsBkHh/kumvbRDKYsyg==",
   "success": true,
-  "projectFilePath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+  "projectFilePath": "E:\\project\\c# projects\\CodeStar\\as\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
