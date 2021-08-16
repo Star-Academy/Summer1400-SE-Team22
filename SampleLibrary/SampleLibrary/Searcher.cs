@@ -30,9 +30,9 @@ namespace SampleLibrary
 
         public List<WordInfo> Search(string searchingExpression)
         {
-            searchingExpression = searchingExpression.ToLower();
+            var searchingExpressionLowered = searchingExpression.ToLower();
             var allCandidates =
-                InstantiateRequiredLists(searchingExpression, out var words, out var plusWords, out var minusWords);
+                InstantiateRequiredLists(searchingExpressionLowered, out var words, out var plusWords, out var minusWords);
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
