@@ -32,7 +32,8 @@ namespace SampleLibrary
         {
             var searchingExpressionLowered = searchingExpression.ToLower();
             var allCandidates =
-                InstantiateRequiredLists(searchingExpressionLowered, out var words, out var plusWords, out var minusWords);
+                InstantiateRequiredLists(searchingExpressionLowered, out var words, out var plusWords,
+                    out var minusWords);
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
@@ -187,6 +188,5 @@ namespace SampleLibrary
                     if (candidates[j].FileName == toBeRemovedDoc.FileName)
                         candidates.RemoveAt(j);
         }
-
     }
 }

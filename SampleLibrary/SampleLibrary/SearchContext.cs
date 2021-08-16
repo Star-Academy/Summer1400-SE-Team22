@@ -10,7 +10,7 @@ namespace SampleLibrary
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Data Source=localhost;Initial Catalog=invertedIndex;Integrated Security=True;User ID=;Password=745910;Pooling=False;Application Name=sqlops-connection-string");
+                @"Data Source=localhost;Initial Catalog=invertedIndex;Integrated Security=True;Pooling=False;Application Name=sqlops-connection-string");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
