@@ -108,9 +108,9 @@ namespace SampleLibrary
                 var candidate = candidates[j];
                 var isExist = false;
 
-                foreach (var wordInfo in demo.Where(wordInfo => wordInfo.GetFileName() == candidate.GetFileName()
-                                                                && candidate.GetPosition() + ignoredCounter + 1 ==
-                                                                wordInfo.GetPosition()))
+                foreach (var wordInfo in demo.Where(wordInfo => wordInfo.FileName == candidate.FileName
+                                                                && candidate.Position + ignoredCounter + 1 ==
+                                                                wordInfo.Position))
                 {
                     candidates[j] = wordInfo;
                     isExist = true;
@@ -126,15 +126,15 @@ namespace SampleLibrary
             IEnumerable<WordInfo> candidates)
         {
             foreach (var candidate in
-                candidates.Where(candidate => !allCandidates.ContainsKey(candidate.GetFileName())))
-                allCandidates.Add(candidate.GetFileName(), candidate);
+                candidates.Where(candidate => !allCandidates.ContainsKey(candidate.FileName)))
+                allCandidates.Add(candidate.FileName, candidate);
         }
 
         private void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
             foreach (var wordInfo in plusWords.SelectMany(plusWord =>
-                SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.GetFileName()))))
-                allCandidates.Add(wordInfo.GetFileName(), wordInfo);
+                SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName))))
+                allCandidates.Add(wordInfo.FileName, wordInfo);
         }
 
         public void PrintResults(List<WordInfo> candidates)
@@ -146,9 +146,9 @@ namespace SampleLibrary
             }
 
             foreach (var candidate in candidates)
-                Console.WriteLine("File name: " + candidate.GetFileName()
+                Console.WriteLine("File name: " + candidate.FileName
                                                 + " ApproximatePosition: " +
-                                                +(candidate.GetPosition() - candidates.Count + 1));
+                                                +(candidate.Position - candidates.Count + 1));
         }
 
         private void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
@@ -182,7 +182,7 @@ namespace SampleLibrary
             foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
                 for (var j = candidates.Count - 1; j >= 0; j--)
-                    if (candidates[j].GetFileName() == toBeRemovedDoc.GetFileName())
+                    if (candidates[j].FileName == toBeRemovedDoc.FileName)
                         candidates.RemoveAt(j);
         }
     }

@@ -8,14 +8,14 @@ namespace SampleLibrary.Test
         private void GetFileNameTest()
         {
             var wordInfo = new WordInfo("test", 20);
-            Assert.Equal("test", wordInfo.GetFileName());
+            Assert.Equal("test", wordInfo.FileName);
         }
 
         [Fact]
         private void GetPositionTest()
         {
             var wordInfo = new WordInfo("test2", 30);
-            Assert.Equal(30, wordInfo.GetPosition());
+            Assert.Equal(30, wordInfo.Position);
         }
     }
 }
