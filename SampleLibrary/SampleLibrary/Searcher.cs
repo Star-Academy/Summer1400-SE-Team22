@@ -21,7 +21,11 @@ namespace SampleLibrary
             {
                 Console.WriteLine("enter a word for search:");
                 var input = Console.ReadLine();
-                if (input == "exit") return;
+                if (input == "exit")
+                {
+                    return;
+                }
+
                 PrintResults(Search(input));
                 Console.WriteLine("---------------------------------------------------");
             }
@@ -35,10 +39,16 @@ namespace SampleLibrary
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
-            if (FindFirstNonStopWord(words, out var navigatingIndex)) return new List<WordInfo>();
+            if (FindFirstNonStopWord(words, out var navigatingIndex))
+            {
+                return new List<WordInfo>();
+            }
 
             var candidates = FindCandidates(words, navigatingIndex);
-            if (candidates.Count == 0) return candidates;
+            if (candidates.Count == 0)
+            {
+                return candidates;
+            }
 
             var ignoredCounter = 0;
             for (navigatingIndex += 1; navigatingIndex < words.Count; navigatingIndex++)
@@ -66,7 +76,8 @@ namespace SampleLibrary
             return new List<WordInfo>(candidates);
         }
 
-        private List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates, List<WordInfo> candidates, List<string> minusWords)
+        private List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates,
+            List<WordInfo> candidates, List<string> minusWords)
         {
             SumResultsWithPlusWords(allCandidates, candidates);
             candidates = new List<WordInfo>(allCandidates.Values);
@@ -74,7 +85,8 @@ namespace SampleLibrary
             return candidates;
         }
 
-        private static Dictionary<string, WordInfo> InstantiateRequiredLists(string searchingExpression, out List<string> words, out List<string> plusWords,
+        private static Dictionary<string, WordInfo> InstantiateRequiredLists(string searchingExpression,
+            out List<string> words, out List<string> plusWords,
             out List<string> minusWords)
         {
             var allCandidates = new Dictionary<string, WordInfo>();
@@ -118,7 +130,9 @@ namespace SampleLibrary
                 }
 
                 if (!isExist)
+                {
                     candidates.RemoveAt(j);
+                }
             }
         }
 
@@ -127,14 +141,18 @@ namespace SampleLibrary
         {
             foreach (var candidate in
                 candidates.Where(candidate => !allCandidates.ContainsKey(candidate.FileName)))
+            {
                 allCandidates.Add(candidate.FileName, candidate);
+            }
         }
 
         private void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
             foreach (var wordInfo in plusWords.SelectMany(plusWord =>
                 SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName))))
+            {
                 allCandidates.Add(wordInfo.FileName, wordInfo);
+            }
         }
 
         public void PrintResults(List<WordInfo> candidates)
@@ -146,9 +164,11 @@ namespace SampleLibrary
             }
 
             foreach (var candidate in candidates)
+            {
                 Console.WriteLine("File name: " + candidate.FileName
                                                 + " ApproximatePosition: " +
                                                 +(candidate.Position - candidates.Count + 1));
+            }
         }
 
         private void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
@@ -181,9 +201,15 @@ namespace SampleLibrary
         {
             foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
+            {
                 for (var j = candidates.Count - 1; j >= 0; j--)
+                {
                     if (candidates[j].FileName == toBeRemovedDoc.FileName)
+                    {
                         candidates.RemoveAt(j);
+                    }
+                }
+            }
         }
     }
 }
