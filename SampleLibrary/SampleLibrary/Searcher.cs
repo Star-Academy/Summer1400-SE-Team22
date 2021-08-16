@@ -6,12 +6,17 @@ namespace SampleLibrary
 {
     public class Searcher
     {
-        public static InvertedIndex InvertedIndex { get; set; }
-        public static SearchContext SearchContext { get; set; } = new SearchContext();
+        public InvertedIndex InvertedIndex { get; }
+        private SearchContext SearchContext { get; }
 
-        public static void Run()
+        public Searcher(SearchContext searchContext, InvertedIndex invertedIndex)
         {
-            InvertedIndex = new InvertedIndex();
+            SearchContext = searchContext;
+            InvertedIndex = invertedIndex;
+        }
+
+        public void Run()
+        {
             while (true)
             {
                 Console.WriteLine("enter a word for search:");
@@ -22,7 +27,7 @@ namespace SampleLibrary
             }
         }
 
-        public static List<WordInfo> Search(string searchingExpression)
+        public List<WordInfo> Search(string searchingExpression)
         {
             var allCandidates = new Dictionary<string, WordInfo>();
             searchingExpression = searchingExpression.ToLower();
@@ -75,7 +80,7 @@ namespace SampleLibrary
             return candidates;
         }
 
-        private static void ReduceResultsToMatchSearch(IList<WordInfo> candidates, int ignoredCounter,
+        private void ReduceResultsToMatchSearch(IList<WordInfo> candidates, int ignoredCounter,
             IReadOnlyCollection<WordInfo> demo)
         {
             for (var j = candidates.Count - 1; j >= 0; j--)
@@ -97,7 +102,7 @@ namespace SampleLibrary
             }
         }
 
-        private static void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
+        private void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
             IEnumerable<WordInfo> candidates)
         {
             foreach (var candidate in
@@ -105,14 +110,14 @@ namespace SampleLibrary
                 allCandidates.Add(candidate.GetFileName(), candidate);
         }
 
-        private static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
+        private void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
             foreach (var wordInfo in plusWords.SelectMany(plusWord =>
                 SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.GetFileName()))))
                 allCandidates.Add(wordInfo.GetFileName(), wordInfo);
         }
 
-        public static void PrintResults(List<WordInfo> candidates)
+        public void PrintResults(List<WordInfo> candidates)
         {
             if (candidates == null)
             {
@@ -126,7 +131,7 @@ namespace SampleLibrary
                                                 +(candidate.GetPosition() - candidates.Count + 1));
         }
 
-        private static void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
+        private void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
             ICollection<string> minusWords)
         {
             for (var i = words.Count - 1; i >= 0; i--)
@@ -145,14 +150,14 @@ namespace SampleLibrary
             }
         }
 
-        private static List<WordInfo> SearchForAWord(string word)
+        private List<WordInfo> SearchForAWord(string word)
         {
             word = word.ToLower();
             var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
             return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
         }
 
-        private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
+        private void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
         {
             foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs))

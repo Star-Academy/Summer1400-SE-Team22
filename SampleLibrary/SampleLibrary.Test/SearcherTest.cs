@@ -12,10 +12,13 @@ namespace SampleLibrary.Test
         private TextReader _savedIn;
         private TextWriter _savedOut;
 
+        private readonly Searcher _searcher;
+
 
         public SearcherTest()
         {
-            Searcher.InvertedIndex = new InvertedIndex();
+            var searchContext = new SearchContext();
+            _searcher = new Searcher(searchContext, new InvertedIndex(searchContext));
             SaveConsoleDefaults();
         }
 
@@ -27,21 +30,21 @@ namespace SampleLibrary.Test
         [Fact]
         private void NormalWordSearch()
         {
-            var result = Searcher.Search("hello");
+            var result = _searcher.Search("hello");
             Assert.Equal(8, result.Count);
         }
 
         [Fact]
         private void NormalWordsSearch()
         {
-            var result = Searcher.Search("school");
+            var result = _searcher.Search("school");
             Assert.True(result.Count > 10);
         }
 
         [Fact]
         private void NormalWordsWithStopWordsBetweenSearch()
         {
-            var result = Searcher.Search("boy");
+            var result = _searcher.Search("boy");
             Assert.True(result.Count == 12);
         }
 
@@ -49,21 +52,21 @@ namespace SampleLibrary.Test
         [Fact]
         private void PlusWordsSearchOne()
         {
-            var result = Searcher.Search("short");
+            var result = _searcher.Search("short");
             Assert.True(result.Count > 20);
         }
 
         [Fact]
         private void PlusWordsSearchTwo()
         {
-            var result = Searcher.Search("-jump");
+            var result = _searcher.Search("-jump");
             Assert.Null(result);
         }
 
         [Fact]
         private void MinusWordSearch()
         {
-            var result = Searcher.Search("ali -hasan");
+            var result = _searcher.Search("ali -hasan");
             Assert.Equal(2, result.Count);
         }
 
@@ -73,7 +76,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = Searcher.Search("is");
+            var result = _searcher.Search("is");
             Assert.Null(result);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
@@ -84,7 +87,7 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = Searcher.Search("were is");
+            var result = _searcher.Search("were is");
             Assert.Null(result);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
@@ -95,8 +98,8 @@ namespace SampleLibrary.Test
             var output = new StringWriter();
             Console.SetOut(output);
 
-            var result = Searcher.Search("inkalamehvojoodnadaradaziz");
-            Searcher.PrintResults(result);
+            var result = _searcher.Search("inkalamehvojoodnadaradaziz");
+            _searcher.PrintResults(result);
             Assert.True(result.Count == 0);
         }
 
@@ -107,7 +110,7 @@ namespace SampleLibrary.Test
             Console.SetOut(output);
 
             Assert.Null(Record.Exception(() =>
-                Searcher.Search("-kid")));
+                _searcher.Search("-kid")));
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
 
@@ -120,7 +123,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(Searcher.Run));
+            Assert.Null(Record.Exception(_searcher.Run));
 
             Assert.Contains("File name: ", output.ToString());
         }
@@ -146,7 +149,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello -kid\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(Searcher.Run));
+            Assert.Null(Record.Exception(_searcher.Run));
         }
     }
 }

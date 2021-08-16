@@ -8,7 +8,7 @@ namespace SampleLibrary.Test
         [Fact]
         private void IndexAllFilesTest()
         {
-            var invertedIndex = new InvertedIndex();
+            var invertedIndex = new InvertedIndex(new SearchContext());
 
             var exception = Record.Exception(() =>
                 invertedIndex.IndexFile(Directory.GetFiles("EnglishData")[0]));
@@ -20,7 +20,7 @@ namespace SampleLibrary.Test
         [Fact]
         private void GetStopWordsTest()
         {
-            Assert.Equal(119, new InvertedIndex().StopWords.Count);
+            Assert.Equal(119, new InvertedIndex(new SearchContext()).StopWords.Count);
         }
     }
 }
