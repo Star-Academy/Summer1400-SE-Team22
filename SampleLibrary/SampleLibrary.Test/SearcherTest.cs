@@ -26,43 +26,28 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        private void NormalWordSearch()
+        private void SearchForANormalWord()
         {
             var result = _searcher.Search("hello");
             Assert.Equal(8, result.Count);
         }
 
         [Fact]
-        private void NormalWordsSearch()
+        private void SearchForANormalFrequentWord()
         {
             var result = _searcher.Search("school");
             Assert.True(result.Count > 10);
         }
 
         [Fact]
-        private void NormalWordsWithStopWordsBetweenSearch()
+        private void SearchForASingleMinusWord_ShouldReturnNothing()
         {
-            var result = _searcher.Search("boy");
-            Assert.True(result.Count == 12);
-        }
-
-
-        [Fact]
-        private void PlusWordsSearchOne()
-        {
-            var result = _searcher.Search("short");
-            Assert.True(result.Count > 20);
-        }
-
-        [Fact]
-        private void PlusWordsSearchTwo()
-        {
-            var result = _searcher.Search("-jump");
+            var result = _searcher.Search("-short");
             Assert.True(result.Count == 0);
         }
 
         [Fact]
-        private void MinusWordSearch()
+        private void CheckNormalAndMinusWordSearch()
         {
             var result = _searcher.Search("ali -hasan");
             Assert.Equal(2, result.Count);
@@ -80,7 +65,7 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        private void StopWordsSearch()
+        private void MultipleStopWordsSearch()
         {
             var output = new StringWriter();
             Console.SetOut(output);
@@ -91,7 +76,7 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        private void NotExistWordsSearch()
+        private void NotExistingWordSearch()
         {
             var output = new StringWriter();
             Console.SetOut(output);
@@ -113,7 +98,7 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        private void MainTest()
+        private void UserInterfaceTest()
         {
             var output = new StringWriter();
             Console.SetOut(output);
@@ -139,7 +124,7 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        private void MainTest2()
+        private void UserInterfaceTest2()
         {
             var output = new StringWriter();
             Console.SetOut(output);
