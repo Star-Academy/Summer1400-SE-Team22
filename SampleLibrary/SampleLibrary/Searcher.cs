@@ -29,34 +29,16 @@ namespace SampleLibrary
 
         public List<WordInfo> Search(string searchingExpression)
         {
-            var allCandidates = new Dictionary<string, WordInfo>();
             searchingExpression = searchingExpression.ToLower();
-            var words = new List<string>(searchingExpression.Split(' '));
-            var plusWords = new List<string>();
-            var minusWords = new List<string>();
+            var allCandidates =
+                InstantiateRequiredLists(searchingExpression, out var words, out var plusWords, out var minusWords);
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
-            var navigatingIndex = 0;
-            try
-            {
-                while (InvertedIndex.StopWords.Contains(words[navigatingIndex])) navigatingIndex++;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("please try a different keyword for your search!");
-                return null;
-            }
+            if (FindFirstNonStopWord(words, out var navigatingIndex)) return new List<WordInfo>();
 
-            List<WordInfo> candidates;
-            try
-            {
-                candidates = new List<WordInfo>(SearchForAWord(words[navigatingIndex]));
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            var candidates = FindCandidates(words, navigatingIndex);
+            if (candidates.Count == 0) return candidates;
 
             var ignoredCounter = 0;
             for (navigatingIndex += 1; navigatingIndex < words.Count; navigatingIndex++)
@@ -74,10 +56,48 @@ namespace SampleLibrary
                 ignoredCounter = 0;
             }
 
+            return HandlePlusAndMinusWords(allCandidates, candidates, minusWords);
+        }
+
+        private List<WordInfo> FindCandidates(IReadOnlyList<string> words, int navigatingIndex)
+        {
+            ICollection<WordInfo> candidates = SearchForAWord(words[navigatingIndex]);
+
+            return new List<WordInfo>(candidates);
+        }
+
+        private List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates, List<WordInfo> candidates, List<string> minusWords)
+        {
             SumResultsWithPlusWords(allCandidates, candidates);
             candidates = new List<WordInfo>(allCandidates.Values);
             DeleteMinusWordsFromCandidates(minusWords, candidates);
             return candidates;
+        }
+
+        private static Dictionary<string, WordInfo> InstantiateRequiredLists(string searchingExpression, out List<string> words, out List<string> plusWords,
+            out List<string> minusWords)
+        {
+            var allCandidates = new Dictionary<string, WordInfo>();
+            words = new List<string>(searchingExpression.Split(' '));
+            plusWords = new List<string>();
+            minusWords = new List<string>();
+            return allCandidates;
+        }
+
+        private bool FindFirstNonStopWord(List<string> words, out int navigatingIndex)
+        {
+            navigatingIndex = 0;
+            try
+            {
+                while (InvertedIndex.StopWords.Contains(words[navigatingIndex])) navigatingIndex++;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("please try a different keyword for your search!");
+                return true;
+            }
+
+            return false;
         }
 
         private void ReduceResultsToMatchSearch(IList<WordInfo> candidates, int ignoredCounter,

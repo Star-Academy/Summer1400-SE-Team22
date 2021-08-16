@@ -60,7 +60,7 @@ namespace SampleLibrary.Test
         private void PlusWordsSearchTwo()
         {
             var result = _searcher.Search("-jump");
-            Assert.Null(result);
+            Assert.True(result.Count == 0);
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace SampleLibrary.Test
             Console.SetOut(output);
 
             var result = _searcher.Search("is");
-            Assert.Null(result);
+            Assert.True(result.Count == 0);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
 
@@ -88,7 +88,7 @@ namespace SampleLibrary.Test
             Console.SetOut(output);
 
             var result = _searcher.Search("were is");
-            Assert.Null(result);
+            Assert.True(result.Count == 0);
             Assert.Contains("please try a different keyword for your search!", output.ToString());
         }
 
