@@ -17,6 +17,5 @@
         public int Position { get; }
         public int WordId { get; set; }
         public Word Word { get; set; }
-
     }
 }

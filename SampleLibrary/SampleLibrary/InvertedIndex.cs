@@ -7,26 +7,24 @@ namespace SampleLibrary
 {
     public class InvertedIndex
     {
-        private SearchContext SearchContext { get; }
-        public List<string> StopWords { get; } =
-            FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
-
-        public List<Word> Words { get; } = new List<Word>();
-
         public InvertedIndex(SearchContext searchContext)
         {
             SearchContext = searchContext;
         }
+
+        private SearchContext SearchContext { get; }
+
+        public List<string> StopWords { get; } =
+            FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
+
+        public List<Word> Words { get; } = new();
 
         public void IndexAllFiles(string folderAddress)
         {
             var listOfFiles = Directory.GetFiles(folderAddress);
 
             Console.WriteLine("indexing...");
-            foreach (var fileAddress in listOfFiles)
-            {
-                IndexFile(fileAddress);
-            }
+            foreach (var fileAddress in listOfFiles) IndexFile(fileAddress);
 
             Console.WriteLine("indexing completed.");
         }
@@ -45,10 +43,7 @@ namespace SampleLibrary
 
         private void HandleIndexing(string fileAddress, string word, int position)
         {
-            if (StopWords.Contains(word) || word.Length > 80)
-            {
-                return;
-            }
+            if (StopWords.Contains(word) || word.Length > 80) return;
 
             var wordInfo = new WordInfo(fileAddress, position);
 

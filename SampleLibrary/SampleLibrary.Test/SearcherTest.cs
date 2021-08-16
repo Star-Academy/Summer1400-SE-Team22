@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using Xunit;
 using Xunit.Sdk;
@@ -9,10 +8,9 @@ namespace SampleLibrary.Test
 {
     public class SearcherTest : BeforeAfterTestAttribute
     {
+        private readonly Searcher _searcher;
         private TextReader _savedIn;
         private TextWriter _savedOut;
-
-        private readonly Searcher _searcher;
 
 
         public SearcherTest()

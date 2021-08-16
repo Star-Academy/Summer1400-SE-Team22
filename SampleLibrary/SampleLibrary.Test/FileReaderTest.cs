@@ -20,7 +20,8 @@ namespace SampleLibrary.Test
         [Fact]
         private void ReadNotExistingFileContentTest()
         {
-            Assert.NotNull(Record.Exception(() => FileReader.ReadFileContent("src/main/resources/notExistingFile.xyz")));
+            Assert.NotNull(Record.Exception(() =>
+                FileReader.ReadFileContent("src/main/resources/notExistingFile.xyz")));
         }
     }
 }
