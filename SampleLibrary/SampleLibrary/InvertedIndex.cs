@@ -29,20 +29,16 @@ namespace SampleLibrary
 
             foreach (var word in text.Split(' '))
             {
-                HandleIndexing(fileAddress, word.ToLower(), ref position);
+                position++;
+                HandleIndexing(fileAddress, word.ToLower(), position);
             }
         }
 
-        private void HandleIndexing(string fileAddress, string word, ref int position)
+        private void HandleIndexing(string fileAddress, string word, int position)
         {
-            if (Searcher.SearchContext == null)
-            {
-                Searcher.SearchContext = new SearchContext();
-            }
+            Searcher.SearchContext ??= new SearchContext();
 
-            position++;
             if (StopWords.Contains(word) || word.Length > 80) return;
-
 
             var wordInfo = new WordInfo(fileAddress, position);
 
