@@ -122,5 +122,6 @@ namespace SampleLibrary
             var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
             return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
         }
+
     }
 }

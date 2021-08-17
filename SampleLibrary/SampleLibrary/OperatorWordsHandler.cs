@@ -6,7 +6,7 @@ namespace SampleLibrary
 {
     public static class OperatorWordsHandler
     {
-        public static void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
+        private static void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
             IEnumerable<WordInfo> candidates)
         {
             candidates.ToList().ForEach(candidate =>
