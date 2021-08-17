@@ -10,7 +10,10 @@ namespace SampleLibrary
             {
                 Console.WriteLine("enter a word for search:");
                 var input = Console.ReadLine();
-                if (input == "exit") return;
+                if (input == "exit")
+                {
+                    return;
+                }
 
                 searcher.PrintResults(searcher.Search(input));
                 Console.WriteLine("---------------------------------------------------");

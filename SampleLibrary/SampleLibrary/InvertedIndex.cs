@@ -39,7 +39,10 @@ namespace SampleLibrary
 
         private void HandleIndexing(string fileAddress, string word, int position)
         {
-            if (StopWords.Contains(word) || word.Length > 80) return;
+            if (StopWords.Contains(word) || word.Length > 80)
+            {
+                return;
+            }
 
             var wordInfo = new WordInfo(fileAddress, position);
 

@@ -37,9 +37,11 @@ namespace SampleLibrary
             minusWords.Select(searcher.SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList().ForEach(toBeRemovedDoc =>
                 {
-                    for (var j = candidates.Count - 1; j >= 0; j--)
+                    for (var j = candidates.Count - 1; j >= 0; j--) {
                         if (candidates[j].FileName == toBeRemovedDoc.FileName)
+                        {
                             candidates.RemoveAt(j);
+                        }}
                 });
         }
 

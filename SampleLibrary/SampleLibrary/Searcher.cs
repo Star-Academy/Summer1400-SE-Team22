@@ -24,10 +24,16 @@ namespace SampleLibrary
 
             OperatorWordsHandler.IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
-            if (FindFirstNonStopWord(words, out var navigatingIndex)) return new List<WordInfo>();
+            if (FindFirstNonStopWord(words, out var navigatingIndex))
+            {
+                return new List<WordInfo>();
+            }
 
             var candidates = FindCandidates(words, navigatingIndex);
-            if (candidates.Count == 0) return candidates;
+            if (candidates.Count == 0)
+            {
+                return candidates;
+            }
 
             var ignoredCounter = 0;
             for (navigatingIndex += 1; navigatingIndex < words.Count; navigatingIndex++)
@@ -99,7 +105,10 @@ namespace SampleLibrary
                     break;
                 }
 
-                if (!isExist) candidates.RemoveAt(j);
+                if (!isExist)
+                {
+                    candidates.RemoveAt(j);
+                }
             }
         }
 
