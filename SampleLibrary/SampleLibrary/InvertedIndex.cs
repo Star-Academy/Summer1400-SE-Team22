@@ -24,8 +24,7 @@ namespace SampleLibrary
             var listOfFiles = Directory.GetFiles(folderAddress);
 
             Console.WriteLine("indexing...");
-            foreach (var fileAddress in listOfFiles) IndexFile(fileAddress);
-
+            listOfFiles.ToList().ForEach(IndexFile);
             Console.WriteLine("indexing completed.");
         }
 
@@ -34,11 +33,8 @@ namespace SampleLibrary
             var position = 0;
             var text = FileReader.ReadFileContent(fileAddress);
 
-            foreach (var word in text.Split(' '))
-            {
-                position++;
-                HandleIndexing(fileAddress, word.ToLower(), position);
-            }
+            text.Split(' ').ToList().ForEach(word =>
+                HandleIndexing(fileAddress, word.ToLower(), position++));
         }
 
         private void HandleIndexing(string fileAddress, string word, int position)

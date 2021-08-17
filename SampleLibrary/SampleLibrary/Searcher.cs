@@ -32,8 +32,8 @@ namespace SampleLibrary
         {
             var searchingExpressionLowered = searchingExpression.ToLower();
             var allCandidates =
-                InstantiateRequiredLists(searchingExpressionLowered, out var words, out var plusWords,
-                    out var minusWords);
+                InstantiateRequiredLists(searchingExpressionLowered, out var words,
+                    out var plusWords, out var minusWords);
 
             IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
@@ -69,7 +69,7 @@ namespace SampleLibrary
         }
 
         private List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates,
-            List<WordInfo> candidates, List<string> minusWords)
+            List<WordInfo> candidates, IEnumerable<string> minusWords)
         {
             SumResultsWithPlusWords(allCandidates, candidates);
             candidates = new List<WordInfo>(allCandidates.Values);
@@ -128,16 +128,24 @@ namespace SampleLibrary
         private void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
             IEnumerable<WordInfo> candidates)
         {
-            foreach (var candidate in
-                candidates.Where(candidate => !allCandidates.ContainsKey(candidate.FileName)))
-                allCandidates.Add(candidate.FileName, candidate);
+            candidates.ToList().ForEach(candidate =>
+            {
+                try
+                {
+                    allCandidates.Add(candidate.FileName, candidate);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            });
         }
 
         private void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
         {
-            foreach (var wordInfo in plusWords.SelectMany(plusWord =>
-                SearchForAWord(plusWord).Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName))))
-                allCandidates.Add(wordInfo.FileName, wordInfo);
+            plusWords.SelectMany(plusWord => SearchForAWord(plusWord)
+                    .Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName)))
+                .ToList().ForEach(wordInfo => allCandidates.Add(wordInfo.FileName, wordInfo));
         }
 
         public void PrintResults(List<WordInfo> candidates)
@@ -148,10 +156,9 @@ namespace SampleLibrary
                 return;
             }
 
-            foreach (var candidate in candidates)
-                Console.WriteLine("File name: " + candidate.FileName
-                                                + " ApproximatePosition: " +
-                                                +(candidate.Position - candidates.Count + 1));
+            candidates.ForEach(candidate =>
+                Console.WriteLine("File name: " + candidate.FileName + " ApproximatePosition: " +
+                                  +(candidate.Position - candidates.Count + 1)));
         }
 
         private void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
@@ -182,11 +189,13 @@ namespace SampleLibrary
 
         private void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
         {
-            foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
-                .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
-                for (var j = candidates.Count - 1; j >= 0; j--)
-                    if (candidates[j].FileName == toBeRemovedDoc.FileName)
-                        candidates.RemoveAt(j);
+            minusWords.Select(SearchForAWord)
+                .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList().ForEach(toBeRemovedDoc =>
+                {
+                    for (var j = candidates.Count - 1; j >= 0; j--)
+                        if (candidates[j].FileName == toBeRemovedDoc.FileName)
+                            candidates.RemoveAt(j);
+                });
         }
     }
 }
