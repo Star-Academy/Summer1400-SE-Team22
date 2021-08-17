@@ -106,7 +106,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(_searcher.Run));
+            Assert.Null(Record.Exception(() => Program.Run(_searcher)));
 
             Assert.Contains("File name: ", output.ToString());
         }
@@ -132,7 +132,7 @@ namespace SampleLibrary.Test
             var data = string.Join(Environment.NewLine, "hello -kid\nexit");
             Console.SetIn(new StringReader(data));
 
-            Assert.Null(Record.Exception(_searcher.Run));
+            Assert.Null(Record.Exception(() => Program.Run(_searcher)));
         }
     }
 }

@@ -15,19 +15,6 @@ namespace SampleLibrary
         public InvertedIndex InvertedIndex { get; }
         private SearchContext SearchContext { get; }
 
-        public void Run()
-        {
-            while (true)
-            {
-                Console.WriteLine("enter a word for search:");
-                var input = Console.ReadLine();
-                if (input == "exit") return;
-
-                PrintResults(Search(input));
-                Console.WriteLine("---------------------------------------------------");
-            }
-        }
-
         public List<WordInfo> Search(string searchingExpression)
         {
             var searchingExpressionLowered = searchingExpression.ToLower();
@@ -35,7 +22,7 @@ namespace SampleLibrary
                 InstantiateRequiredLists(searchingExpressionLowered, out var words,
                     out var plusWords, out var minusWords);
 
-            IsolatePlusAndMinusWords(words, plusWords, minusWords);
+            OperatorWordsHandler.IsolatePlusAndMinusWords(words, plusWords, minusWords);
 
             if (FindFirstNonStopWord(words, out var navigatingIndex)) return new List<WordInfo>();
 
@@ -54,11 +41,11 @@ namespace SampleLibrary
 
                 var demo = SearchForAWord(words[navigatingIndex]);
                 ReduceResultsToMatchSearch(candidates, ignoredCounter, demo);
-                HandlePlusWords(allCandidates, plusWords);
                 ignoredCounter = 0;
             }
 
-            return HandlePlusAndMinusWords(allCandidates, candidates, minusWords);
+            OperatorWordsHandler.HandlePlusWords(allCandidates, plusWords, this);
+            return OperatorWordsHandler.HandlePlusAndMinusWords(allCandidates, candidates, minusWords, this);
         }
 
         private List<WordInfo> FindCandidates(IReadOnlyList<string> words, int navigatingIndex)
@@ -66,15 +53,6 @@ namespace SampleLibrary
             ICollection<WordInfo> candidates = SearchForAWord(words[navigatingIndex]);
 
             return new List<WordInfo>(candidates);
-        }
-
-        private List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates,
-            List<WordInfo> candidates, IEnumerable<string> minusWords)
-        {
-            SumResultsWithPlusWords(allCandidates, candidates);
-            candidates = new List<WordInfo>(allCandidates.Values);
-            DeleteMinusWordsFromCandidates(minusWords, candidates);
-            return candidates;
         }
 
         private static Dictionary<string, WordInfo> InstantiateRequiredLists(string searchingExpression,
@@ -125,29 +103,6 @@ namespace SampleLibrary
             }
         }
 
-        private void SumResultsWithPlusWords(IDictionary<string, WordInfo> allCandidates,
-            IEnumerable<WordInfo> candidates)
-        {
-            candidates.ToList().ForEach(candidate =>
-            {
-                try
-                {
-                    allCandidates.Add(candidate.FileName, candidate);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            });
-        }
-
-        private void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords)
-        {
-            plusWords.SelectMany(plusWord => SearchForAWord(plusWord)
-                    .Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName)))
-                .ToList().ForEach(wordInfo => allCandidates.Add(wordInfo.FileName, wordInfo));
-        }
-
         public void PrintResults(List<WordInfo> candidates)
         {
             if (candidates == null)
@@ -161,41 +116,11 @@ namespace SampleLibrary
                                   +(candidate.Position - candidates.Count + 1)));
         }
 
-        private void IsolatePlusAndMinusWords(IList<string> words, ICollection<string> plusWords,
-            ICollection<string> minusWords)
-        {
-            for (var i = words.Count - 1; i >= 0; i--)
-            {
-                var word = words[i];
-                if (word.StartsWith("+"))
-                {
-                    plusWords.Add(word.Substring(1));
-                    words.RemoveAt(i);
-                }
-                else if (word.StartsWith("-"))
-                {
-                    minusWords.Add(word.Substring(1));
-                    words.RemoveAt(i);
-                }
-            }
-        }
-
-        private List<WordInfo> SearchForAWord(string word)
+        public List<WordInfo> SearchForAWord(string word)
         {
             word = word.ToLower();
             var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
             return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
-        }
-
-        private void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
-        {
-            minusWords.Select(SearchForAWord)
-                .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList().ForEach(toBeRemovedDoc =>
-                {
-                    for (var j = candidates.Count - 1; j >= 0; j--)
-                        if (candidates[j].FileName == toBeRemovedDoc.FileName)
-                            candidates.RemoveAt(j);
-                });
         }
     }
 }
