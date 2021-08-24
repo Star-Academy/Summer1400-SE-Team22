@@ -37,11 +37,13 @@ namespace SampleLibrary
             minusWords.Select(searcher.SearchForAWord)
                 .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList().ForEach(toBeRemovedDoc =>
                 {
-                    for (var j = candidates.Count - 1; j >= 0; j--) {
+                    for (var j = candidates.Count - 1; j >= 0; j--)
+                    {
                         if (candidates[j].FileName == toBeRemovedDoc.FileName)
                         {
                             candidates.RemoveAt(j);
-                        }}
+                        }
+                    }
                 });
         }
 
@@ -67,9 +69,13 @@ namespace SampleLibrary
         public static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords,
             Searcher searcher)
         {
-            plusWords.SelectMany(plusWord => searcher.SearchForAWord(plusWord)
-                    .Where(wordInfo => !allCandidates.ContainsKey(wordInfo.FileName)))
-                .ToList().ForEach(wordInfo => allCandidates.Add(wordInfo.FileName, wordInfo));
+            plusWords.SelectMany(plusWord => searcher
+                    .SearchForAWord(plusWord)
+                    .Where(wordInfo => !allCandidates
+                        .ContainsKey(wordInfo.FileName)))
+                .ToList()
+                .ForEach(wordInfo => allCandidates
+                    .Add(wordInfo.FileName, wordInfo));
         }
     }
 }

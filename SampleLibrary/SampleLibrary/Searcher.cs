@@ -94,22 +94,26 @@ namespace SampleLibrary
             for (var j = candidates.Count - 1; j >= 0; j--)
             {
                 var candidate = candidates[j];
-                var isExist = false;
+                var exists = false;
 
-                foreach (var wordInfo in demo.Where(wordInfo => wordInfo.FileName == candidate.FileName
-                                                                && candidate.Position + ignoredCounter + 1 ==
-                                                                wordInfo.Position))
+                foreach (var wordInfo in demo.Where(ShouldExist(ignoredCounter, candidate)))
                 {
                     candidates[j] = wordInfo;
-                    isExist = true;
+                    exists = true;
                     break;
                 }
 
-                if (!isExist)
+                if (!exists)
                 {
                     candidates.RemoveAt(j);
                 }
             }
+        }
+
+        private static Func<WordInfo, bool> ShouldExist(int ignoredCounter, WordInfo candidate)
+        {
+            return wordInfo => wordInfo.FileName == candidate.FileName
+                               && candidate.Position + ignoredCounter + 1 == wordInfo.Position;
         }
 
         public void PrintResults(List<WordInfo> candidates)
@@ -121,15 +125,19 @@ namespace SampleLibrary
             }
 
             candidates.ForEach(candidate =>
-                Console.WriteLine("File name: " + candidate.FileName + " ApproximatePosition: " +
-                                  +(candidate.Position - candidates.Count + 1)));
+                Console.WriteLine($"File name: {candidate.FileName} ApproximatePosition: {candidate.Position - candidates.Count + 1}"));
         }
 
         public List<WordInfo> SearchForAWord(string word)
         {
             word = word.ToLower();
-            var wordIds = SearchContext.Words.Where(x => x.WordContent == word).Select(x => x.WordId);
-            return SearchContext.WordInfos.Where(y => wordIds.Contains(y.WordId)).ToList();
+            var wordIds = SearchContext.Words
+                .Where(x => x.WordContent == word)
+                .Select(x => x.WordId);
+
+            return SearchContext.WordInfos
+                .Where(y => wordIds
+                    .Contains(y.WordId)).ToList();
         }
 
     }

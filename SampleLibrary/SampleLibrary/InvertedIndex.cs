@@ -15,7 +15,8 @@ namespace SampleLibrary
         private SearchContext SearchContext { get; }
 
         public List<string> StopWords { get; } =
-            FileReader.ReadFileContent("stopWords.txt").Split(',').ToList();
+            FileReader.ReadFileContent("stopWords.txt")
+                .Split(',').ToList();
 
         public List<Word> Words { get; } = new();
 
@@ -33,7 +34,8 @@ namespace SampleLibrary
             var position = 0;
             var text = FileReader.ReadFileContent(fileAddress);
 
-            text.Split(' ').ToList().ForEach(word =>
+            text.Split(' ').ToList()
+                .ForEach(word =>
                 HandleIndexing(fileAddress, word.ToLower(), position++));
         }
 
