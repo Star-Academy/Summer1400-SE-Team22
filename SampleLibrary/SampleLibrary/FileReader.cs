@@ -8,5 +8,10 @@ namespace SampleLibrary
         {
             return File.ReadAllText(fileAddress);
         }
+
+        public static string GetConnectionString()
+        {
+            return ReadFileContent("connectionString.json");
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace DatabaseInitializer
             context.Database.EnsureCreated();
 
             var searcher = new Searcher(context, new InvertedIndex(context));
-            searcher.InvertedIndex.IndexAllFiles("EnglishData");
+            Searcher.InvertedIndex.IndexAllFiles("EnglishData");
 
             context.SaveChanges();
 
