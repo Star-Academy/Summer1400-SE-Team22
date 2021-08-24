@@ -12,8 +12,12 @@ namespace SampleLibrary
             InvertedIndex = invertedIndex;
         }
 
-        public InvertedIndex InvertedIndex { get; }
-        private SearchContext SearchContext { get; }
+        public Searcher()
+        {
+        }
+
+        public static InvertedIndex InvertedIndex { get; set; }
+        private static SearchContext SearchContext { get; set; }
 
         public List<WordInfo> Search(string searchingExpression)
         {
@@ -50,8 +54,8 @@ namespace SampleLibrary
                 ignoredCounter = 0;
             }
 
-            OperatorWordsHandler.HandlePlusWords(allCandidates, plusWords, this);
-            return OperatorWordsHandler.HandlePlusAndMinusWords(allCandidates, candidates, minusWords, this);
+            OperatorWordsHandler.HandlePlusWords(allCandidates, plusWords);
+            return OperatorWordsHandler.HandlePlusAndMinusWords(allCandidates, candidates, minusWords);
         }
 
         private List<WordInfo> FindCandidates(IReadOnlyList<string> words, int navigatingIndex)

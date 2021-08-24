@@ -23,19 +23,19 @@ namespace SampleLibrary
         }
 
         public static List<WordInfo> HandlePlusAndMinusWords(Dictionary<string, WordInfo> allCandidates,
-            List<WordInfo> candidates, IEnumerable<string> minusWords, Searcher searcher)
+            List<WordInfo> candidates, IEnumerable<string> minusWords)
         {
             SumResultsWithPlusWords(allCandidates, candidates);
             candidates = new List<WordInfo>(allCandidates.Values);
-            DeleteMinusWordsFromCandidates(minusWords, candidates, searcher);
+            DeleteMinusWordsFromCandidates(minusWords, candidates);
             return candidates;
         }
 
-        private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates,
-            Searcher searcher)
+        private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
         {
-            minusWords.Select(searcher.SearchForAWord)
-                .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList().ForEach(toBeRemovedDoc =>
+            minusWords.Select(new Searcher().SearchForAWord)
+                .SelectMany(toBeRemovedDocs => toBeRemovedDocs).ToList()
+                .ForEach(toBeRemovedDoc =>
                 {
                     for (var j = candidates.Count - 1; j >= 0; j--)
                     {
@@ -66,10 +66,9 @@ namespace SampleLibrary
             }
         }
 
-        public static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, List<string> plusWords,
-            Searcher searcher)
+        public static void HandlePlusWords(IDictionary<string, WordInfo> allCandidates, IEnumerable<string> plusWords)
         {
-            plusWords.SelectMany(plusWord => searcher
+            plusWords.SelectMany(plusWord => new Searcher()
                     .SearchForAWord(plusWord)
                     .Where(wordInfo => !allCandidates
                         .ContainsKey(wordInfo.FileName)))
