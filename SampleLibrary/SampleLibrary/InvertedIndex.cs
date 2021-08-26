@@ -24,8 +24,6 @@ namespace SampleLibrary
 
         private void IndexFile(string fileAddress)
         {
-            // String fileName = fileAddress.getName();
-
             var position = 0;
             var text = FileReader.ReadFileContent(fileAddress);
             foreach (var word in text.Split(' '))

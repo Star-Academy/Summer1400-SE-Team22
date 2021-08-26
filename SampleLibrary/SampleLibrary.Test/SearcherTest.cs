@@ -13,7 +13,6 @@ namespace SampleLibrary.Test
         private TextReader _savedIn;
         private TextWriter _savedOut;
 
-
         public SearcherTest()
         {
             const string folderAddress = "TestResources/EnglishData";
@@ -49,7 +48,6 @@ namespace SampleLibrary.Test
             Assert.Single(result);
             Assert.Contains("4", result[0].GetFileName());
         }
-
 
         [Fact]
         private void PlusWordsSearchOne()

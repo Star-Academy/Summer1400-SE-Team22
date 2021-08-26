@@ -17,6 +17,7 @@ namespace SampleLibrary
                 Console.WriteLine("enter a word for search:");
                 var input = Console.ReadLine();
                 if (input == "exit") return;
+
                 PrintResults(Search(input));
                 Console.WriteLine("---------------------------------------------------");
             }
@@ -81,19 +82,18 @@ namespace SampleLibrary
             for (var j = candidates.Count - 1; j >= 0; j--)
             {
                 var candidate = candidates[j];
-                var isExist = false;
+                var exists = false;
 
                 foreach (var wordInfo in demo.Where(wordInfo => wordInfo.GetFileName() == candidate.GetFileName()
                                                                 && candidate.GetPosition() + ignoredCounter + 1 ==
                                                                 wordInfo.GetPosition()))
                 {
                     candidates[j] = wordInfo;
-                    isExist = true;
+                    exists = true;
                     break;
                 }
 
-                if (!isExist)
-                    candidates.RemoveAt(j);
+                if (!exists) candidates.RemoveAt(j);
             }
         }
 
