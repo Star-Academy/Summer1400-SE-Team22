@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PaY2KSJm6outPxrofN0ASC5z2IeTXbPzmPBsSPaTGiHvzOv6494l4PIL9e8RNKJ9f6zovpkg1wqv8JXuErXT/w==",
+  "dgSpecHash": "AkMr95mR8xQQKtPuZVkKvOAOxpmk3vdyYa4wQGRI4/VGEZ/QOxFWhcDp6B3gJZW3k5OHAMz5FPHs+5FuWHHxzg==",
   "success": true,
-  "projectFilePath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
+  "projectFilePath": "E:\\temperory\\awdrwae\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary\\SampleLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",

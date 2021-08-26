@@ -5,23 +5,26 @@ namespace SampleLibrary.Test
 {
     public class FileReaderTest
     {
-
         [Fact]
         private void ReadFileContentTest()
         {
-            File.WriteAllTextAsync("temp.txt", "hello world!");
+            const string tempFileName = "temp.txt";
+            const string tempFileContent = "hello world!";
 
-            var content = FileReader.ReadFileContent("temp.txt");
+            File.WriteAllTextAsync(tempFileName, tempFileContent);
 
-            Assert.Equal("hello world!", content);
+            var content = FileReader.ReadFileContent(tempFileName);
 
-            File.Delete("temp.txt");
+            Assert.Equal(tempFileContent, content);
+
+            File.Delete(tempFileName);
         }
 
         [Fact]
         private void ReadNotExistingFileContentTest()
         {
-            Assert.Equal("", FileReader.ReadFileContent("src/main/resources/notExistingFile.xyz"));
+            const string notExistingFilePath = "src/main/resources/notExistingFile.xyz";
+            Assert.Equal("", FileReader.ReadFileContent(notExistingFilePath));
         }
     }
 }

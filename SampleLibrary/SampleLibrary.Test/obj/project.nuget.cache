@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W3u2BkBEhDUxxoaUV94u/oHvhJHZnG/N61m8EUUOhrDGUB1+2f4G3PYB+wdLSTF3QDr6Z/9n9ArGSoAYLl7GLQ==",
+  "dgSpecHash": "OUkYf3OAPlf9igVtEseHdYic3kMXPIWGMQyic0Wi61HKpXCV19I48ORMUkUj9QmTGHXRPnJyoVrN6tbM5XIOig==",
   "success": true,
-  "projectFilePath": "E:\\temperory\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
+  "projectFilePath": "E:\\temperory\\awdrwae\\Summer1400-SE-Team22\\SampleLibrary\\SampleLibrary.Test\\SampleLibrary.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\Abolfazl Ghalandary\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

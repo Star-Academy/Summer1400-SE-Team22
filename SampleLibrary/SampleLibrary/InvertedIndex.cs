@@ -17,10 +17,7 @@ namespace SampleLibrary
             var listOfFiles = Directory.GetFiles(folderAddress);
 
             Console.WriteLine("indexing...");
-            foreach (var fileAddress in listOfFiles)
-            {
-                IndexFile(fileAddress);
-            }
+            foreach (var fileAddress in listOfFiles) IndexFile(fileAddress);
 
             Console.WriteLine("indexing completed.");
         }
@@ -29,8 +26,8 @@ namespace SampleLibrary
         {
             // String fileName = fileAddress.getName();
 
-            int position = 0;
-            String text = FileReader.ReadFileContent(fileAddress);
+            var position = 0;
+            var text = FileReader.ReadFileContent(fileAddress);
             foreach (var word in text.Split(' '))
             {
                 var wordCopy = word.ToLower();
@@ -38,15 +35,10 @@ namespace SampleLibrary
                 position++;
                 if (StopWords.Contains(wordCopy)) continue;
 
-                if (!Index.ContainsKey(wordCopy))
-                {
-                    Index.Add(wordCopy, new List<WordInfo>());
-                }
+                if (!Index.ContainsKey(wordCopy)) Index.Add(wordCopy, new List<WordInfo>());
 
                 Index[wordCopy].Add(new WordInfo(fileAddress, position));
             }
         }
-
-
     }
 }

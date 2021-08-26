@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Xunit;
@@ -9,15 +8,16 @@ namespace SampleLibrary.Test
 {
     public class SearcherTest : BeforeAfterTestAttribute
     {
-        private static InvertedIndex _invertedIndex = new InvertedIndex();
-        private static Searcher _searcher = new Searcher();
-        private TextWriter _savedOut;
+        private static InvertedIndex _invertedIndex = new();
+        private static Searcher _searcher = new();
         private TextReader _savedIn;
+        private TextWriter _savedOut;
 
 
         public SearcherTest()
         {
-            SetUpInvertedIndex("TestResources/EnglishData");
+            const string folderAddress = "TestResources/EnglishData";
+            SetUpInvertedIndex(folderAddress);
 
             SaveConsoleDefaults();
         }
@@ -155,7 +155,7 @@ namespace SampleLibrary.Test
         }
 
         [Fact]
-        void MainTest2()
+        private void MainTest2()
         {
             SetUpInvertedIndex("EnglishData");
 

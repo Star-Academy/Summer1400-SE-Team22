@@ -7,10 +7,11 @@ namespace SampleLibrary.Test
         [Fact]
         private void IndexAllFilesTest()
         {
+            const string folderAddress = "EnglishData";
             var invertedIndex = new InvertedIndex();
 
             var exception = Record.Exception(() =>
-                invertedIndex.IndexAllFiles("EnglishData"));
+                invertedIndex.IndexAllFiles(folderAddress));
 
             Assert.Null(exception);
             Assert.NotNull(invertedIndex.Index);
