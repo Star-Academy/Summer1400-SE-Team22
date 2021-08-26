@@ -153,8 +153,10 @@ namespace SampleLibrary
 
         private static void DeleteMinusWordsFromCandidates(IEnumerable<string> minusWords, IList<WordInfo> candidates)
         {
-            foreach (var toBeRemovedDoc in minusWords.Select(SearchForAWord)
-                .SelectMany(toBeRemovedDocs => toBeRemovedDocs))
+            var toBeRemovedDocs = minusWords.Select(SearchForAWord)
+                .SelectMany(toBeRemovedDoc => toBeRemovedDoc);
+
+            foreach (var toBeRemovedDoc in toBeRemovedDocs)
                 for (var j = candidates.Count - 1; j >= 0; j--)
                     if (candidates[j].GetFileName() == toBeRemovedDoc.GetFileName())
                         candidates.RemoveAt(j);
