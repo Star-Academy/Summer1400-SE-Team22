@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -14,17 +15,15 @@ namespace Summer1400_SE_Team22
 
         private static void Run()
         {
-            var studentsJson = File.ReadAllText("Database/Students.json");
-            var students = JsonSerializer.Deserialize<Student[]>(studentsJson);
+            const string studentsFilePath = "Database/Students.json";
+            const string scoresFilePath = "Database/Scores.json";
 
-            var scoresJson = File.ReadAllText("Database/Scores.json");
-            var scores = JsonSerializer.Deserialize<LessonScore[]>(scoresJson);
+            var students = JsonDeserializer.Deserialize<Student[]>(studentsFilePath);
+            var scores = JsonDeserializer.Deserialize<LessonScore[]>(scoresFilePath);
 
-            foreach (var x in scores) students[x.StudentNumber - 1].AddAnScore(x.Score);
-            foreach (var t in students) t.GPA = t.Scores.Average();
+            GPACalculator.CalculateGPA(scores, students);
 
-            foreach (var s in students.ToList().OrderByDescending(student => student.GPA).Take(3))
-                Console.WriteLine($"-> name: {s.FirstName} {s.LastName}, GPA: {s.GPA:N2}");
+            ResultPrinter.PrintResults(students, 3);
         }
     }
 }
