@@ -9,7 +9,7 @@ namespace Summer1400_SE_Team22
         public string LastName { get; set; }
         public double GPA { get; set; }
 
-        public void AddAnScore(double score)
+        public void AddScore(double score)
         {
             Scores.Add(score);
         }
